@@ -1,6 +1,7 @@
-package by.chat.dao;
+package by.chat.dao.memory.factory;
 
 import by.chat.dao.api.IMessageDao;
+import by.chat.dao.memory.MessageMemoryDao;
 
 public class MessageDaoFactory {
     private static IMessageDao instance;

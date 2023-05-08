@@ -2,8 +2,10 @@ package by.chat.servlets;
 
 import by.chat.core.dto.MessageDTO;
 import by.chat.core.dto.UserDTO;
-import by.chat.services.MessageServiceFactory;
+import by.chat.services.factory.MessageServiceFactory;
 import by.chat.services.api.IMessageService;
+import by.chat.services.api.IUserService;
+import by.chat.services.factory.UserServiceFactory;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,10 +21,12 @@ import java.util.Map;
 @WebServlet(urlPatterns = "/api/message")
 public class MessageServlet extends HttpServlet {
     private IMessageService messageService;
+    private IUserService userService;
 
 
     public MessageServlet() {
        this.messageService= MessageServiceFactory.getInstance();
+       this.userService= UserServiceFactory.getInstance();
     }
 
     @Override
@@ -49,18 +53,24 @@ public class MessageServlet extends HttpServlet {
         String name;
         if (parametrMap.get("toUser") == null || parametrMap.get("toUser")[0] == null){
             throw new IllegalArgumentException("error");
-
         }
         name = parametrMap.get("toUser")[0];
+        UserDTO recipient = null;
+        for (UserDTO users:userService.get()){
+            if (users.getLogin().equals(name)){
+                recipient = users;
+                break;
+            }
+        }
+        if (recipient == null){
+            throw new IllegalArgumentException("error");
+        }
         String message;
         if (parametrMap.get("message") == null || parametrMap.get("message")[0] == null){
             throw new IllegalArgumentException("error");
         }
         message =parametrMap.get("message")[0];
-        messageService.save(new MessageDTO(message,user.getId(),name));
-
-
-
+        messageService.save(new MessageDTO(message,user.getId(),recipient.getId()));
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ui/message.jspx");
         dispatcher.forward(req,resp);
 
