@@ -1,7 +1,7 @@
-package by.chat.services;
+package by.chat.services.factory;
 
-import by.chat.dao.MessageDaoFactory;
-import by.chat.dao.MessageMemoryDao;
+import by.chat.dao.memory.factory.MessageDaoFactory;
+import by.chat.services.MessageService;
 import by.chat.services.api.IMessageService;
 
 public class MessageServiceFactory {

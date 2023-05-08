@@ -1,7 +1,6 @@
 package by.chat.services;
 
 import by.chat.core.dto.MessageDTO;
-import by.chat.dao.MessageDaoFactory;
 import by.chat.dao.api.IMessageDao;
 import by.chat.services.api.IMessageService;
 
