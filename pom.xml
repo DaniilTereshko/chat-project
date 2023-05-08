@@ -45,10 +45,10 @@
         <configuration>
           <webResources>
             <resource>
-              <directory>${basedir}/src/main/webapp</directory>
+              <directory>${basedir}/our-chat/src/main/webapp</directory>
             </resource>
           </webResources>
-          <webXml>${basedir}/src/main/webapp/WEB-INF/web.xml</webXml>
+          <webXml>our-chat/src/main/webapp/WEB-INF/web.xml</webXml>
         </configuration>
       </plugin>
       <plugin>
