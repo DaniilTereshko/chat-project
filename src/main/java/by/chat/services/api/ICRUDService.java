@@ -8,5 +8,6 @@ public interface ICRUDService<T, S> {
     T save(S item);
 
     T get(int id);
+
 }
 

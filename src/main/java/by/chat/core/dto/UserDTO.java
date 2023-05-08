@@ -1,6 +1,7 @@
 package by.chat.core.dto;
 
 
+
 import java.util.Calendar;
 
 public class UserDTO {
@@ -108,4 +109,5 @@ public class UserDTO {
     public void setRole(String role) {
         this.role = role;
     }
+
 }

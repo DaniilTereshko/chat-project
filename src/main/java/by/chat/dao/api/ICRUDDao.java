@@ -1,5 +1,6 @@
 package by.chat.dao.api;
 
+
 import java.util.List;
 
 public interface ICRUDDao<T> {
