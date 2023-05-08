@@ -1,5 +1,6 @@
 package by.chat.core.dto;
 
+
 import java.util.Date;
 
 public class MessageDTO {
