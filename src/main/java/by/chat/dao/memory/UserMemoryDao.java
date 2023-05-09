@@ -80,4 +80,9 @@ public class UserMemoryDao implements IUserDao {
     public UserDTO get(int id) {
         return this.users.get(id);
     }
+
+    @Override
+    public UserDTO get(String login) {
+        return users.values().stream().filter(v -> v.getLogin().equals(login)).findFirst().orElse(null);
+    }
 }

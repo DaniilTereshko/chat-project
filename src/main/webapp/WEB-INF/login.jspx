@@ -1,0 +1,20 @@
+<html xmlns:jsp="http://java.sun.com/JSP/Page"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      version="2.0"
+>
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <head>
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
+    </head>
+    <body>
+        <jsp:include page="header.jsp"/>
+        <form action="login" method="POST">
+            <label for="username">Логин:</label>
+            <input type="text" id="login" name="login"/><br/>
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password"/><br/>
+            <input type="submit" value="Войти"/>
+        </form>
+    </body>
+</html>
