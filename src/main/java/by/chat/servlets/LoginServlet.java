@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        req.getRequestDispatcher("WEB-INF/login.jspx").forward(req,resp);
     }
 
     @Override
@@ -41,5 +41,6 @@ public class LoginServlet extends HttpServlet {
         }else {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Неправильный пароль");
         }
+        resp.sendRedirect("/chat-project-1.0.0/");
     }
 }

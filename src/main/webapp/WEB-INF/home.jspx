@@ -7,11 +7,6 @@
         <title>Home</title>
     </head>
     <body>
-        <jsp:include page="header.html"/>
-        <div class="container mt-5">
-            <h1>Hello, guest!</h1>
-            <div>This is a simple chat project.</div>
-        </div>
-        <jsp:include page="footer.html"/>
+        <h1>${sessionScope.user.getLogin()}</h1>
     </body>
 </html>
