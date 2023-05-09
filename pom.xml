@@ -60,6 +60,9 @@
     </plugins>
   </build>
 
+
+
+
   <properties>
     <maven.tomcat.url>http://localhost:1010/manager/text</maven.tomcat.url>
     <maven.tomcat.server>TomcatServer8</maven.tomcat.server>
