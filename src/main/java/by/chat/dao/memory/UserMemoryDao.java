@@ -1,6 +1,7 @@
 package by.chat.dao.memory;
 
 
+import by.chat.core.dto.Role;
 import by.chat.core.dto.UserDTO;
 import by.chat.dao.api.IUserDao;
 
@@ -34,7 +35,7 @@ public class UserMemoryDao implements IUserDao {
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-            UserDTO dto = new UserDTO(1, "123", "321", "Денис", "Александрович", "Кузько",  birthday, regDay, "Admin");
+            UserDTO dto = new UserDTO(1, "123", "321", "Денис", "Александрович", "Кузько",  birthday, regDay, Role.ADMIN);
             users.put(dto.getId(), dto);
         }
         {
@@ -47,7 +48,7 @@ public class UserMemoryDao implements IUserDao {
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-            UserDTO dto = new UserDTO(2, "Max", "111", "Максим", "Александрович", "Иванов",  birthday, regDay, "Пользователь");
+            UserDTO dto = new UserDTO(2, "Max", "111", "Максим", "Александрович", "Иванов",  birthday, regDay, Role.USER);
             users.put(dto.getId(), dto);
         }
         {
@@ -60,7 +61,7 @@ public class UserMemoryDao implements IUserDao {
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-            UserDTO dto = new UserDTO(3, "Olya", "111", "Ольга", "Александровна", "Сидор",  birthday, regDay, "Пользователь");
+            UserDTO dto = new UserDTO(3, "Olya", "111", "Ольга", "Александровна", "Сидор",  birthday, regDay, Role.USER);
             users.put(dto.getId(), dto);
         }
     }
