@@ -5,11 +5,10 @@
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
     <head>
         <title>Home</title>
+        <link rel="stylesheet" type="text/css" href="header.css"/>
     </head>
     <body>
-    <jsp:include page="header.jspx"/>
+        <jsp:include page="header.jsp"/>
         <h1>${sessionScope.user.getLogin()}</h1>
-        <h1>Мы на главной странице</h1>
-    <a class="nav-link" aria-current="page" href="/login">Login</a>
     </body>
 </html>

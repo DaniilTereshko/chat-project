@@ -37,7 +37,7 @@ public class MessageServlet extends HttpServlet {
         HttpSession session = req.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
         req.setAttribute("messages",messageService.get(user.getId()));
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/message.jspx");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/message.jspx");
         dispatcher.forward(req,resp);
 
     }
@@ -71,7 +71,7 @@ public class MessageServlet extends HttpServlet {
         }
         message =parametrMap.get("message")[0];
         messageService.save(new MessageDTO(message,user.getId(),recipient.getId()));
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/message.jspx");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/message.jspx");
         dispatcher.forward(req,resp);
 
     }

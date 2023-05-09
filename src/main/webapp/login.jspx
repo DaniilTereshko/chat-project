@@ -4,11 +4,13 @@
 >
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
     <head>
+        <meta charset="UTF-8"/>
         <title>Login</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="header.css"/>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
     </head>
     <body>
-        <jsp:include page="header.jspx"/>
+        <jsp:include page="header.jsp"/>
         <form action="login" method="POST">
             <label for="username">Логин:</label>
             <input type="text" id="login" name="login"/><br/>
