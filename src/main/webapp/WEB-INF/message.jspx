@@ -16,7 +16,7 @@
         <title>Messages</title>
     </head>
     <body>
-    <jsp:include page="header.html"/>
+    <jsp:include page="header.jspx"/>
     <jstl:forEach items="${messages}" var="message">
         <div style="text-align: center">
             <p>${message.message}</p>
@@ -28,7 +28,6 @@
         <textarea name="message" cols="30" rows="2" placeholder="Short text about you">${text}</textarea><br/>
         <button>Send</button>
     </form>
-    <jsp:include page="footer.html"/>
     </body>
     </html>
 </jsp:root>
