@@ -14,6 +14,8 @@
     <html>
     <head>
         <title>Messages</title>
+        <link rel="stylesheet" type="text/css" href="header.css"/>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
     </head>
     <body>
     <jsp:include page="header.jsp"/>
@@ -22,8 +24,8 @@
             <p>${message.message}</p>
         </div>
     </jstl:forEach>
-    <form style="text-align: center" action="api/message" method="post">
-        To : <input type="text" name="toUser"  placeholder="to"/><br/>
+    <form style="text-align: center" action="message" method="post">
+        To : <input type="text" name="toUser"  placeholder="login"/><br/>
         <h3>Message</h3><br/>
         <textarea name="message" cols="30" rows="2" placeholder="Short text about you">${text}</textarea><br/>
         <button>Send</button>

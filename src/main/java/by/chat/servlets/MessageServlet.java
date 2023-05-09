@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.Map;
 
 
-@WebServlet(urlPatterns = "/api/message")
+@WebServlet(urlPatterns = "/message")
 public class MessageServlet extends HttpServlet {
     private IMessageService messageService;
     private IUserService userService;
@@ -71,6 +71,7 @@ public class MessageServlet extends HttpServlet {
         }
         message =parametrMap.get("message")[0];
         messageService.save(new MessageDTO(message,user.getId(),recipient.getId()));
+        req.setAttribute("messages",messageService.get(user.getId()));
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/message.jspx");
         dispatcher.forward(req,resp);
 
