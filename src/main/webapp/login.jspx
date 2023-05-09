@@ -4,8 +4,10 @@
 >
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
     <head>
+        <meta charset="UTF-8"/>
         <title>Login</title>
-        <link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="header.css"/>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
     </head>
     <body>
         <jsp:include page="header.jsp"/>
