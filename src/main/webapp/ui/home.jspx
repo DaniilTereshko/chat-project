@@ -6,6 +6,7 @@
     <head>
         <title>Home</title>
         <link rel="stylesheet" type="text/css" href="ui/styles/header.css"/>
+        <link rel="stylesheet" type="text/css" href="ui/styles/home.css"/>
     </head>
     <body>
         <jsp:include page="header.jsp"/>

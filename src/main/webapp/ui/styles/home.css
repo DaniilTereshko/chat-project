@@ -2,36 +2,15 @@ body {
   background-color: #f2f2f2;
   font-family: Arial, sans-serif;
 }
-
-.login {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  margin: 50px auto;
-  padding: 20px;
-  max-width: 400px;
-}
-
 label {
   display: block;
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 5px;
 }
-
-input[type="text"],
-input[type="password"],
-textarea{
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  display: block;
-  font-size: 16px;
-  padding: 10px;
-  width: 100%;
-  margin-bottom: 10px;
+input[type="submit"]:hover {
+  background-color: #3e8e41;
 }
-
 input[type="submit"] {
   background-color: #4CAF50;
   border: none;
@@ -42,9 +21,15 @@ input[type="submit"] {
   width: 100%;
   margin-top: 10px;
 }
-
-input[type="submit"]:hover {
-  background-color: #3e8e41;
+input[type="text"],
+textarea{
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  display: block;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 .error {
