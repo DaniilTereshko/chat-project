@@ -1,0 +1,78 @@
+.wraper-part {
+    display: grid;
+    grid-template-areas:
+  "h g"
+  "b b";
+    grid-template-rows:auto ;
+    grid-template-columns:1fr 1fr;
+
+    margin: 20px auto;
+    max-width: 1000px;
+    padding: 20px;
+    text-align: center;
+}
+.header-ftomWho{
+    grid-area: h;
+    text-align: left;
+}
+.header-time {
+    grid-area: g;
+    text-align: right;
+}
+.body-message{
+    grid-area: b;
+    text-align: left;
+    margin-top: 20px;
+}
+.border{
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.message{
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin: 10px auto;
+    padding: 20px;
+    max-width: 1000px;
+
+}
+.wraper-message{
+    display: grid;
+    grid-template-areas:
+  "a a a"
+  "e c d"
+  "i i d";
+    grid-template-rows:1fr 1fr 1fr ;
+    grid-template-columns:1fr 3fr 8fr;
+}
+.wraper-message-1{
+    grid-area: a;
+    text-align: center;
+}
+.wraper-message-2{
+    grid-area: e;
+    padding: 10px;
+
+}
+.wraper-message-3{
+    grid-area: c;
+    padding: 10px;
+
+}
+.wraper-message-4{
+    grid-area: d;
+    padding: 10px;
+
+}
+.wraper-message-5{
+    grid-area: i;
+    padding: 10px;
+
+}
+
