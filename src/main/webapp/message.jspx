@@ -21,11 +21,23 @@
     <body>
     <jsp:include page="header.jsp"/>
     <form class="message" action="message" method="post">
-        <h3>To :</h3>
-       To :<input type="text" name="toUser"  placeholder="login"/>
-        <h3>Message :</h3>
-        <textarea style="resize: none" id="ta" name="message" rows="4" placeholder="write here!">${text}</textarea>
+        <div class="wraper-message">
+        <div class="wraper-message-1">
+        <h3>New Message</h3>
+        </div>
+        <div class="wraper-message-2">
+        <p>To : </p>
+        </div>
+        <div class="wraper-message-3">
+        <input type="text" name="toUser"  placeholder="login"/>
+        </div>
+        <div class="wraper-message-4">
+        <textarea   style="resize: none" id="ta" name="message" rows="6" placeholder="write here!">${text}</textarea>
+        </div>
+        <div class="wraper-message-5">
         <input type="submit" value="Send"/>
+        </div>
+        </div>
     </form>
     <jstl:forEach items="${messages}" var="message">
         <div class="wraper-part border">

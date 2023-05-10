@@ -29,6 +29,7 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     padding: 20px;
 }
+
 .message{
     background-color: #fff;
     border: 1px solid #ccc;
@@ -37,4 +38,39 @@
     margin: 10px auto;
     padding: 20px;
     max-width: 1000px;
+
 }
+.wraper-message{
+    display: grid;
+    grid-template-areas:
+  "a a a"
+  "e c d"
+  "i i d";
+    grid-template-rows:1fr 1fr 1fr ;
+    grid-template-columns:1fr 3fr 8fr;
+}
+.wraper-message-1{
+    grid-area: a;
+    text-align: center;
+}
+.wraper-message-2{
+    grid-area: e;
+    padding: 10px;
+
+}
+.wraper-message-3{
+    grid-area: c;
+    padding: 10px;
+
+}
+.wraper-message-4{
+    grid-area: d;
+    padding: 10px;
+
+}
+.wraper-message-5{
+    grid-area: i;
+    padding: 10px;
+
+}
+
