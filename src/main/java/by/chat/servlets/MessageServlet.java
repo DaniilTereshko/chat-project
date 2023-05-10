@@ -73,7 +73,7 @@ public class MessageServlet extends HttpServlet {
         if (parametrMap.get(MESSAGE_PARAM) == null || parametrMap.get(MESSAGE_PARAM)[0] == null){
             throw new IllegalArgumentException("error");
         }
-        message =parametrMap.get(MESSAGE_PARAM)[0];
+        message = parametrMap.get(MESSAGE_PARAM)[0];
         String oldBlank = "\n";
         String newBlank = "<br/>";
         String newMessage =  message.replace(oldBlank,newBlank);
