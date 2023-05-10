@@ -11,7 +11,7 @@
     </head>
     <body>
         <jsp:include page="header.jsp"/>
-        <form action="login" method="POST">
+        <form class="login" action="login" method="POST">
             <label for="username">Логин:</label>
             <input type="text" id="login" name="login"/><br/>
             <label for="password">Пароль:</label>

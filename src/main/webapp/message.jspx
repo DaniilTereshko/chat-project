@@ -16,21 +16,24 @@
         <title>Messages</title>
         <link rel="stylesheet" type="text/css" href="header.css"/>
         <link rel="stylesheet" type="text/css" href="style.css"/>
+        <link rel="stylesheet" type="text/css" href="mess.css"/>
     </head>
     <body>
     <jsp:include page="header.jsp"/>
+    <form class="message" action="message" method="post">
+        <h3>To :</h3>
+       To :<input type="text" name="toUser"  placeholder="login"/>
+        <h3>Message :</h3>
+        <textarea style="resize: none" id="ta" name="message" rows="4" placeholder="write here!">${text}</textarea>
+        <input type="submit" value="Send"/>
+    </form>
     <jstl:forEach items="${messages}" var="message">
-        <div style="text-align: center">
-            <p>${message.message}</p>
+        <div class="wraper-part border">
+            <div class="header-ftomWho">${message.fromUserId}</div>
+            <div class="header-time">${message.date}</div>
+            <div class="body-message border">${message.message}</div>
         </div>
     </jstl:forEach>
-    <form style="text-align: center" action="message" method="post">
-        To : <input type="text" name="toUser"  placeholder="login"/><br/>
-        <h3>Message</h3><br/>
-        <textarea name="message" cols="30" rows="2" placeholder="Short text about you">${text}</textarea><br/>
-        <button>Send</button>
-    </form>
-
     <!--<jsp:include page="footer.html"/>-->
     </body>
     </html>
