@@ -14,9 +14,9 @@
     <html>
     <head>
         <title>Messages</title>
-        <link rel="stylesheet" type="text/css" href="header.css"/>
-        <link rel="stylesheet" type="text/css" href="style.css"/>
-        <link rel="stylesheet" type="text/css" href="mess.css"/>
+        <link rel="stylesheet" type="text/css" href="../styles/header.css"/>
+        <link rel="stylesheet" type="text/css" href="../styles/style.css"/>
+        <link rel="stylesheet" type="text/css" href="../styles/mess.css"/>
     </head>
     <body>
     <jsp:include page="header.jsp"/>
@@ -41,12 +41,11 @@
     </form>
     <jstl:forEach items="${messages}" var="message">
         <div class="wraper-part border">
-            <div class="header-ftomWho">${message.fromUserId}</div>
+            <div class="header-ftomWho">${message.info}</div>
             <div class="header-time">${message.date}</div>
             <div class="body-message border">${message.message}</div>
         </div>
     </jstl:forEach>
-    <!--<jsp:include page="footer.html"/>-->
     </body>
     </html>
 </jsp:root>

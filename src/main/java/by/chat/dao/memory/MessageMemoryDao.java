@@ -13,8 +13,6 @@ public class MessageMemoryDao implements IMessageDao {
 
     public MessageMemoryDao() {
         this.dao = new ArrayList<>();
-        dao.add(new MessageDTO("Hello\rWorld<br/>Im OK<br/>Denis",1,1));
-        dao.add(new MessageDTO("Hello\rWorld\nIm OK\nDenis",1,1));
     }
 
     @Override

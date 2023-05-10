@@ -4,7 +4,7 @@
   "h g"
   "b b";
     grid-template-rows:1fr 1fr ;
-    grid-template-columns:2fr 10fr;
+    grid-template-columns:1fr 1fr;
     margin: 20px auto;
     max-width: 1000px;
     padding: 20px;

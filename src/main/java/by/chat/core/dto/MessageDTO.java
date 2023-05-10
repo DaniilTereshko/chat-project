@@ -9,11 +9,14 @@ public class MessageDTO {
     private String message;
     private Date date;
 
+    private String info;
 
-    public MessageDTO(String message, Integer fromId, Integer toId) {
+
+    public MessageDTO(String message, Integer fromId, Integer toId, String info) {
         this.message = message;
         this.fromUserId = fromId;
         this.toUserId = toId;
+        this.info = info;
         this.date = new Date();
     }
 
@@ -29,6 +32,9 @@ public class MessageDTO {
         return toUserId;
     }
 
+    public String getInfo() {
+        return info;
+    }
     public Date getDate() {
         return date;
     }

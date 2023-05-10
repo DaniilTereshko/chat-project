@@ -20,6 +20,10 @@ import java.util.Map;
 
 @WebServlet(urlPatterns = "/message")
 public class MessageServlet extends HttpServlet {
+    private static final String USER_PARAM_OBJECT = "user";
+    private static final String TO_USER_PARAM_ID = "toUser";
+    private static final String MESSAGE_PARAM = "message";
+    private static final String ALL_MESSAGES_FOR_USER_PARAM = "messages";
     private IMessageService messageService;
     private IUserService userService;
 
@@ -35,8 +39,8 @@ public class MessageServlet extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         resp.setContentType("text/html; charset=utf-8");
         HttpSession session = req.getSession();
-        UserDTO user = (UserDTO) session.getAttribute("user");
-        req.setAttribute("messages",messageService.get(user.getId()));
+        UserDTO user = (UserDTO) session.getAttribute(USER_PARAM_OBJECT);
+        req.setAttribute(ALL_MESSAGES_FOR_USER_PARAM,messageService.get(user.getId()));
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/message.jspx");
         dispatcher.forward(req,resp);
 
@@ -48,13 +52,13 @@ public class MessageServlet extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         resp.setContentType("text/html; charset=utf-8");
         HttpSession session = req.getSession();
-        UserDTO user = (UserDTO) session.getAttribute("user");
+        UserDTO user = (UserDTO) session.getAttribute(USER_PARAM_OBJECT);
         Map<String,String[]> parametrMap = req.getParameterMap();
         String name;
-        if (parametrMap.get("toUser") == null || parametrMap.get("toUser")[0] == null){
+        if (parametrMap.get(TO_USER_PARAM_ID) == null || parametrMap.get(TO_USER_PARAM_ID)[0] == null){
             throw new IllegalArgumentException("error");
         }
-        name = parametrMap.get("toUser")[0];
+        name = parametrMap.get(TO_USER_PARAM_ID)[0];
         UserDTO recipient = null;
         for (UserDTO users:userService.get()){
             if (users.getLogin().equals(name)){
@@ -66,12 +70,16 @@ public class MessageServlet extends HttpServlet {
             throw new IllegalArgumentException("error");
         }
         String message;
-        if (parametrMap.get("message") == null || parametrMap.get("message")[0] == null){
+        if (parametrMap.get(MESSAGE_PARAM) == null || parametrMap.get(MESSAGE_PARAM)[0] == null){
             throw new IllegalArgumentException("error");
         }
-        message =parametrMap.get("message")[0];
-        messageService.save(new MessageDTO(message,user.getId(),recipient.getId()));
-        req.setAttribute("messages",messageService.get(user.getId()));
+        message =parametrMap.get(MESSAGE_PARAM)[0];
+        String oldBlank = "\n";
+        String newBlank = "<br/>";
+        String newMessage =  message.replace(oldBlank,newBlank);
+        messageService.save(new MessageDTO(newMessage,user.getId(),recipient.getId(),
+                user.getLastName()+" "+user.getFirstName()+" "+user.getMiddleName()));
+        req.setAttribute(ALL_MESSAGES_FOR_USER_PARAM,messageService.get(user.getId()));
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/message.jspx");
         dispatcher.forward(req,resp);
 

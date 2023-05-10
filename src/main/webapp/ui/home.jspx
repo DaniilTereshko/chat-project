@@ -5,7 +5,7 @@
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
     <head>
         <title>Home</title>
-        <link rel="stylesheet" type="text/css" href="header.css"/>
+        <link rel="stylesheet" type="text/css" href="../styles/header.css"/>
     </head>
     <body>
         <jsp:include page="header.jsp"/>
