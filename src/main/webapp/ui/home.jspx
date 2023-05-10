@@ -9,6 +9,13 @@
     </head>
     <body>
         <jsp:include page="header.jsp"/>
-        <h1>${sessionScope.user.getLogin()}</h1>
+        <c:choose>
+            <c:when test="${not empty sessionScope.user.getLogin()}">
+                <h1>Hello, ${sessionScope.user.getLogin()}!</h1>
+            </c:when>
+            <c:otherwise>
+                <h1>Hello, guest!</h1>
+            </c:otherwise>
+        </c:choose>
     </body>
 </html>

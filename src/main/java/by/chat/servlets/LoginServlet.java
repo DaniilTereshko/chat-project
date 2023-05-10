@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/ui/login.jspx").forward(req,resp);
+        req.getRequestDispatcher("/ui/login.jsp").forward(req,resp);
     }
 
     @Override
@@ -34,12 +34,13 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter(PASSWORD_PARAM_NAME);
         UserDTO userDTO = userService.get(login);
         if(userDTO == null){
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Пользователя с таким логином не существует");
-        }
-        else if (userDTO.getPassword().equals(password)){
+            req.setAttribute("loginError", "Пользователя с таким логином не существует");
+            req.getRequestDispatcher("/ui/login.jsp").forward(req,resp);
+        } else if (userDTO.getPassword().equals(password)){
             session.setAttribute("user", userDTO);
-        }else {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Неправильный пароль");
+        } else {
+            req.setAttribute("passwordError", "Неправильный пароль");
+            req.getRequestDispatcher("/ui/login.jsp").forward(req,resp);
         }
         resp.sendRedirect("/chat-project-1.0.0/home");
     }

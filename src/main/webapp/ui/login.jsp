@@ -13,9 +13,19 @@
         <jsp:include page="header.jsp"/>
         <form class="login" action="login" method="POST">
             <label for="username">Логин:</label>
-            <input type="text" id="login" name="login"/><br/>
+            <input type="text" id="login" name="login" required/><br/>
             <label for="password">Пароль:</label>
-            <input type="password" id="password" name="password"/><br/>
+            <input type="password" id="password" name="password" required/><br/>
+            <div class="error-wrapper">
+                <c:choose>
+                  <c:when test="${not empty requestScope.loginError}">
+                    <div class="error">${requestScope.loginError}</div>
+                  </c:when>
+                  <c:when test="${not empty requestScope.passwordError}">
+                    <div class="error">${requestScope.passwordError}</div>
+                  </c:when>
+                </c:choose>
+            </div>
             <input type="submit" value="Войти"/>
         </form>
     </body>
