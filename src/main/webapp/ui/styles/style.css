@@ -3,7 +3,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-form {
+.login {
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -21,7 +21,8 @@ label {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+textarea{
   border: 1px solid #ccc;
   border-radius: 3px;
   display: block;

@@ -13,7 +13,7 @@ public class UserDTO {
     private String lastName;
     private Calendar birthday;
     private Calendar registrationDate;
-    private String role;
+    private Role role;
 
     public UserDTO() {
     }
@@ -26,7 +26,7 @@ public class UserDTO {
                    String lastName,
                    Calendar birthday,
                    Calendar registrationDate,
-                   String role) {
+                   Role role) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -102,11 +102,11 @@ public class UserDTO {
         this.registrationDate = registrationDate;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

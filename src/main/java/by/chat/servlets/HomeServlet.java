@@ -12,7 +12,7 @@ import java.io.IOException;
 public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/home.jspx").forward(req, resp);
+        req.getRequestDispatcher("/ui/home.jspx").forward(req, resp);
     }
 
     @Override

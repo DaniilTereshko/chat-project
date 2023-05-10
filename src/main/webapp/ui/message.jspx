@@ -1,0 +1,51 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: tatdzi
+  Date: 08/05/2023
+  Time: 19:56
+  To change this template use File | Settings | File Templates.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jstl="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          version="2.0">
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <html>
+    <head>
+        <title>Messages</title>
+        <link rel="stylesheet" type="text/css" href="ui/styles/header.css"/>
+        <link rel="stylesheet" type="text/css" href="ui/styles/style.css"/>
+        <link rel="stylesheet" type="text/css" href="ui/styles/mess.css"/>
+    </head>
+    <body>
+    <jsp:include page="header.jsp"/>
+    <form class="message" action="message" method="post">
+        <div class="wraper-message">
+        <div class="wraper-message-1">
+        <h3>New Message</h3>
+        </div>
+        <div class="wraper-message-2">
+        <p>To : </p>
+        </div>
+        <div class="wraper-message-3">
+        <input type="text" name="toUser"  placeholder="login"/>
+        </div>
+        <div class="wraper-message-4">
+        <textarea   style="resize: none" id="ta" name="message" rows="6" placeholder="write here!">${text}</textarea>
+        </div>
+        <div class="wraper-message-5">
+        <input type="submit" value="Send"/>
+        </div>
+        </div>
+    </form>
+    <jstl:forEach items="${messages}" var="message">
+        <div class="wraper-part border">
+            <div class="header-ftomWho">${message.info}</div>
+            <div class="header-time">${message.date}</div>
+            <div class="body-message border">${message.message}</div>
+        </div>
+    </jstl:forEach>
+    </body>
+    </html>
+</jsp:root>

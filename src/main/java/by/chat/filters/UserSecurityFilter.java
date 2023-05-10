@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-//@WebFilter(urlPatterns = "user/*")
+@WebFilter(urlPatterns = "/message")
 public class UserSecurityFilter implements Filter {
 
     @Override
