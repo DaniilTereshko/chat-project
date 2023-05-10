@@ -14,9 +14,9 @@
     <html>
     <head>
         <title>Messages</title>
-        <link rel="stylesheet" type="text/css" href="../styles/header.css"/>
-        <link rel="stylesheet" type="text/css" href="../styles/style.css"/>
-        <link rel="stylesheet" type="text/css" href="../styles/mess.css"/>
+        <link rel="stylesheet" type="text/css" href="ui/styles/header.css"/>
+        <link rel="stylesheet" type="text/css" href="ui/styles/style.css"/>
+        <link rel="stylesheet" type="text/css" href="ui/styles/mess.css"/>
     </head>
     <body>
     <jsp:include page="header.jsp"/>
