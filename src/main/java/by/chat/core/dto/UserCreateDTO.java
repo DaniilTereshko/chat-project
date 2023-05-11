@@ -103,16 +103,5 @@ public class UserCreateDTO {
         this.role = role;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserCreateDTO that = (UserCreateDTO) o;
-        return id == that.id && Objects.equals(login, that.login) && Objects.equals(password, that.password) && Objects.equals(firstName, that.firstName) && Objects.equals(middleName, that.middleName) && Objects.equals(lastName, that.lastName) && Objects.equals(birthday, that.birthday) && Objects.equals(registrationDate, that.registrationDate) && role == that.role;
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, login, password, firstName, middleName, lastName, birthday, registrationDate, role);
-    }
 }

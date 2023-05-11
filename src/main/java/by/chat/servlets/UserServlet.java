@@ -37,50 +37,12 @@ public class UserServlet extends HttpServlet {
         this.userService = UserServiceFactory.getInstance();
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        // перенаправляе  пользователя на форму регистрации
-        req.getRequestDispatcher("/registration.jspx").forward(req, resp);
-
-
-      /*  req.setCharacterEncoding("UTF-8");
-        resp.setContentType("text/html; charset=UTF-8");
-        PrintWriter writer = resp.getWriter();
-        List<UserDTO> userDTOS = this.userService.get();
-
-        for (UserDTO userDTO : userDTOS) {
-            writer.write(userDTO.getId() + " ");
-            writer.write(userDTO.getLogin() + " ");
-            writer.write(userDTO.getPassword() + " ");
-            writer.write(userDTO.getFirstName() + " ");
-            writer.write(userDTO.getMiddleName() + " ");
-            writer.write(userDTO.getLastName() + " ");
-
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            String birthDay = null;
-            String regDay = null;
-            if (userDTO.getBirthday() != null) {
-                birthDay = sdf.format(userDTO.getBirthday().getTime());
-                regDay = sdf.format(userDTO.getRegistrationDate().getTime());
-            } else {
-                birthDay = null;
-                regDay = null;
-            }
-
-            writer.write(birthDay + " ");
-            writer.write(regDay + " ");
-            writer.write(userDTO.getRole() + "<br>");
-        }
-
-       */
-    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // палучаем параметры
-
         Calendar calendar = Calendar.getInstance();
+
         String login = req.getParameter(LOGIN_PARAM_NAME);
         String password = req.getParameter(PASSWORD_PARAM_NAME);
         String confirmedPassword = req.getParameter(CONFIRMED_PASSWORD_PARAM_NAME);
@@ -110,11 +72,14 @@ public class UserServlet extends HttpServlet {
         } else if (birthday == null) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Вы не ввели дату роджения");
         } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+            Date date = null;
             try {
-                calendar.setTime(new Date(String.valueOf(new SimpleDateFormat("dd-MM-yyyy").parse(birthday))));
+                date = sdf.parse(birthday);
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
+            calendar.setTime(date);
         }
 
         // сохраняем нового пользователя
@@ -129,11 +94,5 @@ public class UserServlet extends HttpServlet {
                 Role.USER
         );
         userService.save(userCreateDTO);
-
-
-
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/chat-project-1.0.0/home");
-        dispatcher.forward(req,resp);
-
     }
 }
