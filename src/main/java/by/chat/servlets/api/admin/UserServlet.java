@@ -29,6 +29,7 @@ public class UserServlet extends HttpServlet {
 
     public UserServlet() {
         this.userService = UserServiceFactory.getInstance();
+
     }
 
     @Override
@@ -40,4 +41,10 @@ public class UserServlet extends HttpServlet {
         req.getRequestDispatcher("/ui/admin/users.jspx").forward(req,resp);
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String role = req.getParameter("role");
+        String id = req.getParameter("id");
+        UserDTO userDTO = userService.get(id);
+    }
 }

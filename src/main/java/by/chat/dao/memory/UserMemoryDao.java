@@ -7,11 +7,7 @@ import by.chat.dao.api.IUserDao;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UserMemoryDao implements IUserDao {
     private final Map<Integer, UserDTO> users = new HashMap<>();
@@ -27,11 +23,11 @@ public class UserMemoryDao implements IUserDao {
     public UserMemoryDao() {
         {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            Calendar birthday = Calendar.getInstance();
-            Calendar regDay = Calendar.getInstance();
+            Date birthday;
+            Date regDay;
             try {
-                birthday.setTime(sdf.parse("20-02-1990"));
-                regDay.setTime(sdf.parse("20-02-2013"));
+                birthday = sdf.parse("20-02-1990");
+                regDay = sdf.parse("20-02-2013");
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
@@ -40,11 +36,11 @@ public class UserMemoryDao implements IUserDao {
         }
         {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            Calendar birthday = Calendar.getInstance();
-            Calendar regDay = Calendar.getInstance();
+            Date birthday;
+            Date regDay;
             try {
-                birthday.setTime(sdf.parse("19-02-1990"));
-                regDay.setTime(sdf.parse("20-02-2014"));
+                birthday = sdf.parse("19-02-1990");
+                regDay = sdf.parse("20-02-2014");
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
@@ -53,11 +49,11 @@ public class UserMemoryDao implements IUserDao {
         }
         {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            Calendar birthday = Calendar.getInstance();
-            Calendar regDay = Calendar.getInstance();
+            Date birthday;
+            Date regDay;
             try {
-                birthday.setTime(sdf.parse("19-02-1992"));
-                regDay.setTime(sdf.parse("20-02-2017"));
+                birthday = sdf.parse("19-02-1992");
+                regDay = sdf.parse("20-02-2017");
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
