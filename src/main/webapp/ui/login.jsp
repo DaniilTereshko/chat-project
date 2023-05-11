@@ -6,9 +6,9 @@
     <head>
         <meta charset="UTF-8"/>
         <title>Login</title>
-        <link rel="stylesheet" type="text/css" href="ui/styles/header.css"/>
-        <link rel="stylesheet" type="text/css" href="ui/styles/login.css"/>
-        <link rel="stylesheet" type="text/css" href="ui/styles/home.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ui/styles/header.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ui/styles/login.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ui/styles/home.css"/>
     </head>
     <body>
         <jsp:include page="header.jsp"/>

@@ -1,4 +1,4 @@
-package by.chat.servlets;
+package by.chat.servlets.admin;
 
 
 import by.chat.core.dto.UserDTO;
@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-@WebServlet(name = "UserServlet", urlPatterns = "/api/user")
+@WebServlet(name = "UserServlet", urlPatterns = "/api/users")
 
 public class UserServlet extends HttpServlet {
     private static final String LOGIN_PARAM_NAME = "login";
