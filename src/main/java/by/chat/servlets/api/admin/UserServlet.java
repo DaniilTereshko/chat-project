@@ -19,7 +19,7 @@ import java.util.List;
 
 @WebServlet(name = "UserServlet", urlPatterns = "/api/admin/users")
 
-public class UsersServlet extends HttpServlet {
+public class UserServlet extends HttpServlet {
     private static final String LOGIN_PARAM_NAME = "login";
     private static final String PASSWORD_PARAM_NAME = "password";
     private static final String FIRST_NAME_PARAM_NAME = "firstName";
@@ -30,7 +30,7 @@ public class UsersServlet extends HttpServlet {
     private final IUserService userService;
     private final IAdminService adminService;
 
-    public UsersServlet() {
+    public UserServlet() {
         this.userService = UserServiceFactory.getInstance();
         this.adminService = AdminServiceFactory.getInstance();
     }
