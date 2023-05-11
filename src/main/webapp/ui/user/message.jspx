@@ -23,13 +23,26 @@
     <form class="message" action="message" method="post">
         <div class="wraper-message">
         <div class="wraper-message-1">
-        <h3>New Message</h3>
+        <h3>New Message<br/>
+            <jstl:choose>
+            <jstl:when test="${not empty requestScope.loginError}">
+                    <div class="error">${requestScope.loginError}</div>
+            </jstl:when>
+            </jstl:choose>
+        </h3>
         </div>
         <div class="wraper-message-2">
         <p>To : </p>
         </div>
         <div class="wraper-message-3">
-        <input type="text" name="toUser"  placeholder="login"/>
+            <jstl:choose>
+            <jstl:when test="${not empty answerLogin}">
+                <input type="text" name="toUser"  placeholder="login" value="${answerLogin}"/>
+            </jstl:when>
+            <jstl:when test="${empty answerLogin}">
+                <input type="text" name="toUser"  placeholder="login"/>
+            </jstl:when>
+        </jstl:choose>
         </div>
         <div class="wraper-message-4">
         <textarea   style="resize: none" id="ta" name="message" rows="6" placeholder="write here!">${text}</textarea>
@@ -44,6 +57,16 @@
             <div class="header-ftomWho">${message.info}</div>
             <div class="header-time">${message.date}</div>
             <div class="body-message border">${message.message}</div>
+            <div class="buuton-answer">
+                <form method="get">
+                    <button name="answerLogin" value="${message.fromUserId}">reply</button>
+                </form>
+            </div>
+            <div class="buuton-delet">
+                <form method="post">
+                    <button name="messageId" value="${message.id}">delet</button>
+                </form>
+            </div>
         </div>
     </jstl:forEach>
     </body>
