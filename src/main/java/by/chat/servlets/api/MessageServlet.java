@@ -1,4 +1,4 @@
-package by.chat.servlets;
+package by.chat.servlets.api;
 
 import by.chat.core.dto.MessageDTO;
 import by.chat.core.dto.UserDTO;
@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.Map;
 
 
-@WebServlet(urlPatterns = "/message")
+@WebServlet(urlPatterns = "/api/message")
 public class MessageServlet extends HttpServlet {
     private static final String USER_PARAM_OBJECT = "user";
     private static final String TO_USER_PARAM_ID = "toUser";
@@ -41,7 +41,7 @@ public class MessageServlet extends HttpServlet {
         HttpSession session = req.getSession();
         UserDTO user = (UserDTO) session.getAttribute(USER_PARAM_OBJECT);
         req.setAttribute(ALL_MESSAGES_FOR_USER_PARAM,messageService.get(user.getId()));
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ui/message.jspx");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ui/user/message.jspx");
         dispatcher.forward(req,resp);
 
     }
@@ -80,7 +80,7 @@ public class MessageServlet extends HttpServlet {
         messageService.save(new MessageDTO(newMessage,user.getId(),recipient.getId(),
                 user.getLastName()+" "+user.getFirstName()+" "+user.getMiddleName()));
         req.setAttribute(ALL_MESSAGES_FOR_USER_PARAM,messageService.get(user.getId()));
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ui/message.jspx");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ui/user/message.jspx");
         dispatcher.forward(req,resp);
 
     }

@@ -14,12 +14,12 @@
     <html>
     <head>
         <title>Messages</title>
-        <link rel="stylesheet" type="text/css" href="ui/styles/header.css"/>
-        <link rel="stylesheet" type="text/css" href="ui/styles/home.css"/>
-        <link rel="stylesheet" type="text/css" href="ui/styles/mess.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ui/styles/header.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ui/styles/mess.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ui/styles/home.css"/>
     </head>
     <body>
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="../header.jsp"/>
     <form class="message" action="message" method="post">
         <div class="wraper-message">
         <div class="wraper-message-1">

@@ -5,8 +5,8 @@
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
     <head>
         <title>Home</title>
-        <link rel="stylesheet" type="text/css" href="ui/styles/header.css"/>
-        <link rel="stylesheet" type="text/css" href="ui/styles/home.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ui/styles/header.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ui/styles/home.css"/>
     </head>
     <body>
         <jsp:include page="header.jsp"/>

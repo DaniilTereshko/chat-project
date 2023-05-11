@@ -1,4 +1,4 @@
-package by.chat.servlets;
+package by.chat.servlets.api;
 
 import by.chat.core.dto.UserDTO;
 import jakarta.servlet.ServletException;
@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet(name = "LogoutServlet", urlPatterns = "/logout")
+@WebServlet(name = "LogoutServlet", urlPatterns = "/api/logout")
 public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,6 +28,6 @@ public class LogoutServlet extends HttpServlet {
         if(user != null){
             session.removeAttribute("user");
         }
-        response.sendRedirect(contextPath + "/login");
+        response.sendRedirect(contextPath + "/api/login");
     }
 }
