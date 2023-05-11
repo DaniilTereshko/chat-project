@@ -20,7 +20,11 @@
                   <li style="float: right;"><span>Login: guest Role: unknown</span></li>
                 </c:otherwise>
             </c:choose>
-
         </ul>
+        <c:if test="${sessionScope.user != null and sessionScope.user.role.getRoleName() == 'admin'}">
+            <ul>
+                <li><a href="/chat-project-1.0.0/api/admin/users">Users</a></li>
+            </ul>
+        </c:if>
     </nav>
 </header>
