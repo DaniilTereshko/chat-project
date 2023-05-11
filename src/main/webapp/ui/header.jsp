@@ -21,7 +21,7 @@
                 </c:otherwise>
             </c:choose>
         </ul>
-        <c:if test="${sessionScope.user != null and sessionScope.user.role.getRoleName() == 'admin'}">
+        <c:if test="${sessionScope.user != null and sessionScope.user.role.getRoleName() == 'ADMIN'}">
             <ul>
                 <li><a href="/chat-project-1.0.0/api/admin/users">Users</a></li>
             </ul>
