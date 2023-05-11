@@ -11,10 +11,11 @@
 .wraper-part {
     display: grid;
     grid-template-areas:
-  "h g"
-  "b b";
+    "h g"
+    "b b"
+    "an de";
     grid-template-rows:auto ;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:auto;
 
     margin: 20px auto;
     max-width: 1000px;
@@ -33,6 +34,25 @@
     grid-area: b;
     text-align: left;
     margin-top: 20px;
+}
+.buuton-answer{
+    grid-area: an;
+    margin-right: 10px;
+
+}
+.buuton-delet {
+    grid-area: de;
+    margin-left: 10px;
+
+}
+textarea{
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: block;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px;
 }
 .border{
     background-color: #fff;
@@ -84,5 +104,33 @@
     grid-area: i;
     padding: 10px;
 
+}
+
+.buuton-answer button{
+    background-color: #4CAF50;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+    margin-top: 10px;
+
+}
+.buuton-answer button:hover {
+    background-color: #3e8e41;
+}
+.buuton-delet button{
+    background-color: #f60909;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+.buuton-delet button:hover {
+    background-color: #940000;
 }
 
