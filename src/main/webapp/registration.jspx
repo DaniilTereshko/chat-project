@@ -1,0 +1,32 @@
+<html xmlns:jsp="http://java.sun.com/JSP/Page"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      version="2.0"
+>
+<jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Регистрация</title>
+    <link rel="stylesheet" type="text/css" href="header.css"/>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body>
+
+<form action="registration" method="POST">
+    <label for="login">Логин:</label>
+    <input type="text" id="login" name="login"/><br/>
+    <label for="firstName">Имя:</label>
+    <input type="text" id="firstName" name="firstName"/><br/>
+    <label for="lastName">Фамилия:</label>
+    <input type="text" id="lastName" name="lastName"/><br/>
+    <label for="middleName">Отчество:</label>
+    <input type="text" id="middleName" name="middleName"/><br/>
+    <label for="birthday">Дата рождения:</label>
+    <input type="date" id="birthday" name="birthday"/><br/>
+    <label for="password">Пароль:</label>
+    <input type="password" id="password" name="password"/><br/>
+    <label for="confirmed_password">Подтвердите пароль:</label>
+    <input type="password" id="confirmed_password" name="confirmed_password"/><br/>
+    <input type="submit" value="Войти"/>
+</form>
+</body>
+</html>
