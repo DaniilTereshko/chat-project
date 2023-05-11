@@ -13,7 +13,7 @@
     <body>
         <jsp:include page="header.jsp"/>
         <form class="login" action="login" method="POST">
-            <label for="username">Логин:</label>
+            <label for="login">Логин:</label>
             <input type="text" id="login" name="login" required/><br/>
             <label for="password">Пароль:</label>
             <input type="password" id="password" name="password" required/><br/>

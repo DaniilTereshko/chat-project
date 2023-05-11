@@ -3,6 +3,7 @@ package by.chat.core.dto;
 
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class UserDTO {
     private int id;
@@ -11,8 +12,8 @@ public class UserDTO {
     private String firstName;
     private String middleName;
     private String lastName;
-    private Calendar birthday;
-    private Calendar registrationDate;
+    private Date birthday;
+    private Date registrationDate;
     private Role role;
 
     public UserDTO() {
@@ -24,8 +25,8 @@ public class UserDTO {
                    String firstName,
                    String middleName,
                    String lastName,
-                   Calendar birthday,
-                   Calendar registrationDate,
+                   Date birthday,
+                   Date registrationDate,
                    Role role) {
         this.id = id;
         this.login = login;
@@ -86,19 +87,19 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    public Calendar getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Calendar birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
-    public Calendar getRegistrationDate() {
+    public Date getRegistrationDate() {
         return registrationDate;
     }
 
-    public void setRegistrationDate(Calendar registrationDate) {
+    public void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
     }
 
