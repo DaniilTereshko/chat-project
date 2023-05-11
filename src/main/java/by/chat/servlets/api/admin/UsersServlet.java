@@ -15,13 +15,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 @WebServlet(name = "UserServlet", urlPatterns = "/api/admin/users")
 
-public class UserServlet extends HttpServlet {
+public class UsersServlet extends HttpServlet {
     private static final String LOGIN_PARAM_NAME = "login";
     private static final String PASSWORD_PARAM_NAME = "password";
     private static final String FIRST_NAME_PARAM_NAME = "firstName";
@@ -32,7 +30,7 @@ public class UserServlet extends HttpServlet {
     private final IUserService userService;
     private final IAdminService adminService;
 
-    public UserServlet() {
+    public UsersServlet() {
         this.userService = UserServiceFactory.getInstance();
         this.adminService = AdminServiceFactory.getInstance();
     }
