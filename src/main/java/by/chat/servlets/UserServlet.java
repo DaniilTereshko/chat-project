@@ -53,7 +53,7 @@ public class UserServlet extends HttpServlet {
 
         // проверяем на совпадение такого user по логину
         // проверяем на заполнение полей
-        if (login == null) {
+        if ((login == null) || (login == "")) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Вы не ввели логин");
         } else {
             UserDTO userDTO = userService.get(login);
@@ -61,15 +61,17 @@ public class UserServlet extends HttpServlet {
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Пользователь с таким логином уже существует");
             }
         }
-        if (!password.equals(confirmedPassword)) {
+        if((password == null) || (password == "")){
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Вы не пароль");
+        } else if (!password.equals(confirmedPassword)) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Введённые пароли не совпадают");
-        } else if (firstName == null) {
+        } else if ((firstName == null) || (firstName == "")) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Вы не ввели имя");
-        } else if (middleName == null) {
+        } else if ((middleName == null)||(middleName == "")) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Вы не ввели отчество");
-        } else if (lastName == null) {
+        } else if ((lastName == null) || (lastName == "")) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Вы не ввели фамилию");
-        } else if (birthday == null) {
+        } else if ((birthday == null) || (birthday == "  .  .    ") || (birthday == ""))  {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Вы не ввели дату роджения");
         } else {
             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
