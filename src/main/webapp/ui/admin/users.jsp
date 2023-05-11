@@ -1,8 +1,6 @@
-<html xmlns:jsp="http://java.sun.com/JSP/Page"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-      version="2.0"
->
+<html>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
     <head>
         <title>Home</title>
@@ -18,6 +16,16 @@
     </head>
     <body>
         <jsp:include page="../header.jsp"/>
+        <div class="error-wrapper">
+            <c:choose>
+              <c:when test="${not empty requestScope.ok}">
+                <div class="alert-success">${requestScope.ok}</div>
+              </c:when>
+              <c:when test="${not empty requestScope.error}">
+                <div class="alert-danger">${requestScope.error}</div>
+              </c:when>
+            </c:choose>
+        </div>
         <table>
             <thead>
                 <tr>
@@ -35,7 +43,7 @@
             </thead>
             <tbody>
                 <c:forEach var="user" items="${requestScope.users}">
-                    <form action="#" method="post">
+                    <form action="users" method="post">
                         <tr>
                             <td>${user.id}</td>
                             <td>${user.login}</td>
@@ -45,7 +53,14 @@
                             <td>${user.lastName}</td>
                             <td><fmt:formatDate value="${user.birthday}" pattern="yyyy-MM-dd"/></td>
                             <td><fmt:formatDate value="${user.registrationDate}" pattern="yyyy-MM-dd"/></td>
-                            <td><input type="text" id="role" name="role" value="${user.role.getRoleName()}"/></td>
+                            <td>
+                                <c:forEach var="r" items="${roles}">
+                                <label>
+                                    ${r.getRoleName()}:
+                                    <input type="radio" name="role" value="${r.getRoleName()}" ${user.role.getRoleName() == r.getRoleName() ? 'checked' : ''}>
+                                </label>
+                                </c:forEach>
+                            </td>
                             <input type="hidden" name="id" value="${user.id}"/>
                             <td><input type="submit" class="submit-button"/></td>
                         </tr>

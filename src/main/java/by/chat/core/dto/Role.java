@@ -1,7 +1,7 @@
 package by.chat.core.dto;
 
 public enum Role {
-    ADMIN("admin"), USER("user");
+    ADMIN("ADMIN"), USER("USER");
     private final String roleName;
     Role(String roleName) {
         this.roleName = roleName;
