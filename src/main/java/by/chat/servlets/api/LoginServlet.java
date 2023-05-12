@@ -16,6 +16,9 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     private static final String LOGIN_PARAM_NAME = "login";
     private static final String PASSWORD_PARAM_NAME = "password";
+    private static final String REFERER_HEADER = "Referer";
+    private static final String LOGIN_ERROR = "loginError";
+    private static final String PASSWORD_ERROR = "passwordError";
     private final IUserService userService;
 
     public LoginServlet() {
@@ -23,17 +26,25 @@ public class LoginServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/ui/login.jsp").forward(req,resp);
-    }
-
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
+        String referer = req.getHeader(REFERER_HEADER);
         String login = req.getParameter(LOGIN_PARAM_NAME);
         String password = req.getParameter(PASSWORD_PARAM_NAME);
         UserDTO userDTO = userService.get(login);
         if(userDTO == null){
+            referer+="?" + LOGIN_ERROR + "=Пользователя с таким логином не существует";
+            resp.sendRedirect(referer);
+        } else if (!userDTO.getPassword().equals(password)){
+            referer += "?" + PASSWORD_ERROR + "=Неправильный пароль";
+            resp.sendRedirect(referer);
+        } else {
+            session.setAttribute("user", userDTO);
+            resp.sendRedirect(referer);
+        }
+
+
+/*        if(userDTO == null){
             req.setAttribute("loginError", "Пользователя с таким логином не существует");
             req.getRequestDispatcher("/ui/login.jsp").forward(req,resp);
         } else if (userDTO.getPassword().equals(password)){
@@ -42,6 +53,6 @@ public class LoginServlet extends HttpServlet {
             req.setAttribute("passwordError", "Неправильный пароль");
             req.getRequestDispatcher("/ui/login.jsp").forward(req,resp);
         }
-        resp.sendRedirect("/chat-project-1.0.0/api/home");
+        resp.sendRedirect("/chat-project-1.0.0/api/home");*/
     }
 }

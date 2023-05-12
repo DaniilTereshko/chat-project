@@ -12,7 +12,7 @@
     </head>
     <body>
         <jsp:include page="header.jsp"/>
-        <form class="login" action="login" method="POST">
+        <form class="login" action="/chat-project-1.0.0/api/login" method="POST">
             <label for="login">Логин:</label>
             <input type="text" id="login" name="login" required/><br/>
             <label for="password">Пароль:</label>

@@ -5,7 +5,7 @@ import by.chat.dao.memory.factory.UserDaoFactory;
 import by.chat.services.UserService;
 import by.chat.services.api.IUserService;
 
-public class UserServiceFactory {
+public class  UserServiceFactory {
     private static volatile IUserService instance;
     private UserServiceFactory(){
 
