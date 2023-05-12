@@ -20,7 +20,7 @@
     </head>
     <body>
     <jsp:include page="../header.jsp"/>
-    <form class="message" action="message" method="post">
+    <form class="message" action="http://localhost:1010/chat-project-1.0.0/api/message" method="post">
         <div class="wraper-message">
         <div class="wraper-message-1">
         <h3>New Message<br/>
@@ -52,23 +52,6 @@
         </div>
         </div>
     </form>
-    <jstl:forEach items="${messages}" var="message">
-        <div class="wraper-part border">
-            <div class="header-ftomWho">${message.info}</div>
-            <div class="header-time">${message.date}</div>
-            <div class="body-message border">${message.message}</div>
-            <div class="buuton-answer">
-                <form method="get">
-                    <button name="answerLogin" value="${message.fromUserId}">reply</button>
-                </form>
-            </div>
-            <div class="buuton-delet">
-                <form method="post">
-                    <button name="messageId" value="${message.id}">delet</button>
-                </form>
-            </div>
-        </div>
-    </jstl:forEach>
     </body>
     </html>
 </jsp:root>

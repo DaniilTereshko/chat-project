@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet(name = "LoginServlet", urlPatterns = "/api/login")
+@WebServlet( urlPatterns = "/api/login")
 public class LoginServlet extends HttpServlet {
     private static final String LOGIN_PARAM_NAME = "login";
     private static final String PASSWORD_PARAM_NAME = "password";

@@ -5,9 +5,7 @@ import by.chat.core.dto.MessageDTO;
 
 import java.util.List;
 
-public interface IMessageDao {
-    List<MessageDTO> get();
-    MessageDTO save(MessageDTO message);
+public interface IMessageDao extends ICRUDDao<MessageDTO>{
     Integer delet(int id);
 
 

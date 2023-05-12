@@ -5,9 +5,8 @@ import by.chat.core.dto.MessageDTO;
 
 import java.util.List;
 
-public interface IMessageService {
-    List<MessageDTO> get();
-    List<MessageDTO> get(int id);
-    MessageDTO save(MessageCreateDTO message);
+public interface IMessageService extends ICRUDService<MessageDTO,MessageCreateDTO> {
+
     Integer delet(int id);
+    List<MessageDTO> usersMessages(int id);
 }

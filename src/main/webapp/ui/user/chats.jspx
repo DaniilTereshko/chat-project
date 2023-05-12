@@ -1,0 +1,42 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: tatdzi
+  Date: 08/05/2023
+  Time: 19:56
+  To change this template use File | Settings | File Templates.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jstl="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          version="2.0">
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <html>
+    <head>
+        <title>Messages</title>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ui/styles/header.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ui/styles/mess.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ui/styles/home.css"/>
+    </head>
+    <body>
+    <jsp:include page="../header.jsp"/>
+    <jstl:forEach items="${messages}" var="message">
+        <div class="wraper-part border">
+            <div class="header-ftomWho">${message.info}</div>
+            <div class="header-time">${message.date}</div>
+            <div class="body-message border">${message.message}</div>
+            <div class="buuton-answer">
+                <form action="http://localhost:1010/chat-project-1.0.0//ui/user/chats" method="get">
+                    <button name="answerLogin" value="${message.fromUserId}">reply</button>
+                </form>
+            </div>
+            <div class="buuton-delet">
+                <form action="http://localhost:1010/chat-project-1.0.0/api/message" method="post">
+                    <button name="messageId" value="${message.id}">delet</button>
+                </form>
+            </div>
+        </div>
+    </jstl:forEach>
+    </body>
+    </html>
+</jsp:root>

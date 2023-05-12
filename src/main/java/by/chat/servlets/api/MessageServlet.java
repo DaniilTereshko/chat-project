@@ -16,6 +16,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
 import java.util.Map;
 
 
@@ -41,20 +46,31 @@ public class MessageServlet extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         resp.setContentType("text/html; charset=utf-8");
         HttpSession session = req.getSession();
+        PrintWriter writer = resp.getWriter();
         UserDTO user = (UserDTO) session.getAttribute(USER_PARAM_OBJECT);
+        List<MessageDTO> messages = messageService.usersMessages(user.getId());
         String answerId = req.getParameter("answerLogin");
         String answerLogin;
         if (answerId != null){
             Integer ID = Integer.parseInt(answerId);
-            if (userService.get(ID) != null) {
+           if (userService.get(ID) != null) {
                 answerLogin = userService.get(ID).getLogin();
-                req.setAttribute("answerLogin", answerLogin);
+                req.setAttribute("answerLogin",answerLogin);
             }
         }
-        req.setAttribute(ALL_MESSAGES_FOR_USER_PARAM,messageService.get(user.getId()));
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ui/user/message.jspx");
-        dispatcher.forward(req,resp);
-
+        String path = (String) session.getAttribute("pathApp");
+        if (path == null){
+            StringBuilder builder = new StringBuilder();
+            for (MessageDTO message:messages){
+                builder.append(message.getInfo()+" "+message.getDate()+"<br/><br/>");
+                builder.append(message.getMessage()+"<br/><br/><br/>");
+            }
+            writer.write(builder.toString());
+        }else {
+            req.setAttribute(ALL_MESSAGES_FOR_USER_PARAM, messages);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(path);
+            dispatcher.forward(req, resp);
+        }
     }
 
     @Override
@@ -62,14 +78,15 @@ public class MessageServlet extends HttpServlet {
             throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
         resp.setContentType("text/html; charset=utf-8");
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ui/user/message.jspx");
         HttpSession session = req.getSession();
+        session.removeAttribute("loginError");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/ui/user/message");
         UserDTO user = (UserDTO) session.getAttribute(USER_PARAM_OBJECT);
         Map<String,String[]> parametrMap = req.getParameterMap();
         if(parametrMap.get(MESSAGES_DELET_PARAM)!= null&&parametrMap.get(MESSAGES_DELET_PARAM)[0]!= null){
             Integer ID = Integer.parseInt(parametrMap.get(MESSAGES_DELET_PARAM)[0]);
             messageService.delet(ID);
-            resp.sendRedirect("/chat-project-1.0.0/api/message");
+            resp.sendRedirect("/chat-project-1.0.0/ui/user/chats");
         }else {
             String name;
             if (parametrMap.get(TO_USER_PARAM_ID) == null || parametrMap.get(TO_USER_PARAM_ID)[0] == null) {
@@ -78,18 +95,19 @@ public class MessageServlet extends HttpServlet {
             name = parametrMap.get(TO_USER_PARAM_ID)[0];
             UserDTO recipient = userService.get(name);
             if (recipient == null) {
-                req.setAttribute("loginError", "Пользователя с таким логином не существует");
-                dispatcher.forward(req, resp);
+                session.setAttribute("loginError","Пользователя с таким логином не существует");
+                resp.sendRedirect("/chat-project-1.0.0/ui/user/message");
+            }else {
+                String message;
+                if (parametrMap.get(MESSAGE_PARAM) == null || parametrMap.get(MESSAGE_PARAM)[0] == null) {
+                    throw new IllegalArgumentException("error");
+                }
+                message = parametrMap.get(MESSAGE_PARAM)[0];
+                String newMessage = changeOfTransfers(message);
+                messageService.save(new MessageCreateDTO(newMessage, user.getId(), recipient.getId()));
+                resp.sendRedirect("/chat-project-1.0.0/ui/user/message");
             }
-            String message;
-            if (parametrMap.get(MESSAGE_PARAM) == null || parametrMap.get(MESSAGE_PARAM)[0] == null) {
-                throw new IllegalArgumentException("error");
-            }
-            message = parametrMap.get(MESSAGE_PARAM)[0];
-            String newMessage = changeOfTransfers(message);
-            messageService.save(new MessageCreateDTO(newMessage, user.getId(), recipient.getId()));
-            req.setAttribute(ALL_MESSAGES_FOR_USER_PARAM, messageService.get(user.getId()));
-            dispatcher.forward(req, resp);
+
         }
     }
     public String changeOfTransfers(String text){

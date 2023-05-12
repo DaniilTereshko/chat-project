@@ -28,6 +28,11 @@ public class MessageMemoryDao implements IMessageDao {
     }
 
     @Override
+    public MessageDTO get(int id) {
+        return dao.get(id);
+    }
+
+    @Override
     public synchronized Integer delet(int id) {
         dao.remove(id);
         return id;
