@@ -17,8 +17,7 @@ public class LoginServlet extends HttpServlet {
     private static final String LOGIN_PARAM_NAME = "login";
     private static final String PASSWORD_PARAM_NAME = "password";
     private static final String REFERER_HEADER = "Referer";
-    private static final String LOGIN_ERROR = "loginError";
-    private static final String PASSWORD_ERROR = "passwordError";
+    private static final String ERROR = "errorCode";
     private final IUserService userService;
 
     public LoginServlet() {
@@ -32,27 +31,17 @@ public class LoginServlet extends HttpServlet {
         String login = req.getParameter(LOGIN_PARAM_NAME);
         String password = req.getParameter(PASSWORD_PARAM_NAME);
         UserDTO userDTO = userService.get(login);
+        int index = referer.indexOf("?");
+        String result = (index >= 0) ? referer.substring(0, index) : referer;
         if(userDTO == null){
-            referer+="?" + LOGIN_ERROR + "=Пользователя с таким логином не существует";
-            resp.sendRedirect(referer);
+            result+="?" + ERROR + "=1";
+            resp.sendRedirect(result);
         } else if (!userDTO.getPassword().equals(password)){
-            referer += "?" + PASSWORD_ERROR + "=Неправильный пароль";
-            resp.sendRedirect(referer);
+            result += "?" + ERROR + "=2";
+            resp.sendRedirect(result);
         } else {
             session.setAttribute("user", userDTO);
-            resp.sendRedirect(referer);
+            resp.sendRedirect(req.getContextPath() + "/ui/");
         }
-
-
-/*        if(userDTO == null){
-            req.setAttribute("loginError", "Пользователя с таким логином не существует");
-            req.getRequestDispatcher("/ui/login.jsp").forward(req,resp);
-        } else if (userDTO.getPassword().equals(password)){
-            session.setAttribute("user", userDTO);
-        } else {
-            req.setAttribute("passwordError", "Неправильный пароль");
-            req.getRequestDispatcher("/ui/login.jsp").forward(req,resp);
-        }
-        resp.sendRedirect("/chat-project-1.0.0/api/home");*/
     }
 }

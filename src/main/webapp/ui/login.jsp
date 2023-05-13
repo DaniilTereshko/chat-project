@@ -18,14 +18,9 @@
             <label for="password">Пароль:</label>
             <input type="password" id="password" name="password" required/><br/>
             <div class="error-wrapper">
-                <c:choose>
-                  <c:when test="${not empty requestScope.loginError}">
-                    <div class="error">${requestScope.loginError}</div>
-                  </c:when>
-                  <c:when test="${not empty requestScope.passwordError}">
-                    <div class="error">${requestScope.passwordError}</div>
-                  </c:when>
-                </c:choose>
+                <c:if test="${not empty errorScope.errorCode}">
+                    <div class="error">${requestScope.errorCode}</div>
+                </c:if>
             </div>
             <input type="submit" value="Войти"/>
         </form>
