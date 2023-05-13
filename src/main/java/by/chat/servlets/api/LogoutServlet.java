@@ -14,20 +14,13 @@ import java.io.IOException;
 public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req,resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req, resp);
-    }
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        String contextPath = request.getContextPath();
-        HttpSession session = request.getSession();
+        String contextPath = req.getContextPath();
+        HttpSession session = req.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
         if(user != null){
             session.removeAttribute("user");
+            session.invalidate();
         }
-        response.sendRedirect(contextPath + "/api/login");
+        resp.sendRedirect(contextPath + "/ui/signIn");
     }
 }
