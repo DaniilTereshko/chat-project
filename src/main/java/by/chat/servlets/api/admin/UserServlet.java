@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/api/admin/users")
+@WebServlet(name="UserServlet",urlPatterns = "/api/admin/users")
 
 public class UserServlet extends HttpServlet {
     private static final String LOGIN_PARAM_NAME = "login";
