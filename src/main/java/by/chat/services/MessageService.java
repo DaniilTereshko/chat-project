@@ -26,14 +26,8 @@ public class MessageService implements IMessageService {
     }
 
     @Override
-    public List<MessageDTO> get(int id) {
-        List<MessageDTO> result = new ArrayList<>();
-        for (MessageDTO massage:messageDao.get()){
-            if (massage.getToUserId() == id){
-                result.add(massage);
-            }
-        }
-        return result;
+    public MessageDTO get(int id) {
+        return messageDao.get(id);
     }
 
     @Override
@@ -49,5 +43,16 @@ public class MessageService implements IMessageService {
     public Integer delet(int id) {
         messageDao.delet(id);
         return id;
+    }
+
+    @Override
+    public List<MessageDTO> usersMessages(int id) {
+        List<MessageDTO> result = new ArrayList<>();
+        for (MessageDTO massage:messageDao.get()){
+            if (massage.getToUserId() == id){
+                result.add(massage);
+            }
+        }
+        return result;
     }
 }

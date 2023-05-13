@@ -16,6 +16,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
 import java.util.Map;
 
 
@@ -26,6 +31,8 @@ public class MessageServlet extends HttpServlet {
     private static final String MESSAGE_PARAM = "message";
     private static final String ALL_MESSAGES_FOR_USER_PARAM = "messages";
     private static final String MESSAGES_DELET_PARAM = "messageId";
+    private static final String REFERER_HEADER = "Referer";
+    private static final String LOGIN_ERROR = "loginError";
     private IMessageService messageService;
     private IUserService userService;
 
@@ -41,19 +48,16 @@ public class MessageServlet extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         resp.setContentType("text/html; charset=utf-8");
         HttpSession session = req.getSession();
+        PrintWriter writer = resp.getWriter();
         UserDTO user = (UserDTO) session.getAttribute(USER_PARAM_OBJECT);
-        String answerId = req.getParameter("answerLogin");
-        String answerLogin;
-        if (answerId != null){
-            Integer ID = Integer.parseInt(answerId);
-            if (userService.get(ID) != null) {
-                answerLogin = userService.get(ID).getLogin();
-                req.setAttribute("answerLogin", answerLogin);
-            }
+        List<MessageDTO> messages = messageService.usersMessages(user.getId());
+        StringBuilder builder = new StringBuilder();
+        for (MessageDTO message:messages){
+            builder.append(message.getInfo()+" "+message.getDate()+"<br/><br/>");
+            builder.append(message.getMessage()+"<br/><br/><br/>");
         }
-        req.setAttribute(ALL_MESSAGES_FOR_USER_PARAM,messageService.get(user.getId()));
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ui/user/message.jspx");
-        dispatcher.forward(req,resp);
+        writer.write(builder.toString());
+
 
     }
 
@@ -62,15 +66,19 @@ public class MessageServlet extends HttpServlet {
             throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
         resp.setContentType("text/html; charset=utf-8");
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ui/user/message.jspx");
+        String referer = req.getHeader(REFERER_HEADER);
         HttpSession session = req.getSession();
+        session.removeAttribute("loginError");
         UserDTO user = (UserDTO) session.getAttribute(USER_PARAM_OBJECT);
         Map<String,String[]> parametrMap = req.getParameterMap();
+        int index = referer.indexOf("?");
+        referer = index >= 0 ? referer.substring(0,index) : referer;
+
         if(parametrMap.get(MESSAGES_DELET_PARAM)!= null&&parametrMap.get(MESSAGES_DELET_PARAM)[0]!= null){
             Integer ID = Integer.parseInt(parametrMap.get(MESSAGES_DELET_PARAM)[0]);
             messageService.delet(ID);
-            resp.sendRedirect("/chat-project-1.0.0/api/message");
         }else {
+
             String name;
             if (parametrMap.get(TO_USER_PARAM_ID) == null || parametrMap.get(TO_USER_PARAM_ID)[0] == null) {
                 throw new IllegalArgumentException("error");
@@ -78,19 +86,19 @@ public class MessageServlet extends HttpServlet {
             name = parametrMap.get(TO_USER_PARAM_ID)[0];
             UserDTO recipient = userService.get(name);
             if (recipient == null) {
-                req.setAttribute("loginError", "Пользователя с таким логином не существует");
-                dispatcher.forward(req, resp);
+                referer +="?" + LOGIN_ERROR + "=error";
+            }else {
+                String message;
+                if (parametrMap.get(MESSAGE_PARAM) == null || parametrMap.get(MESSAGE_PARAM)[0] == null) {
+                    throw new IllegalArgumentException("error");
+                }
+                message = parametrMap.get(MESSAGE_PARAM)[0];
+                String newMessage = changeOfTransfers(message);
+                messageService.save(new MessageCreateDTO(newMessage, user.getId(), recipient.getId()));
             }
-            String message;
-            if (parametrMap.get(MESSAGE_PARAM) == null || parametrMap.get(MESSAGE_PARAM)[0] == null) {
-                throw new IllegalArgumentException("error");
-            }
-            message = parametrMap.get(MESSAGE_PARAM)[0];
-            String newMessage = changeOfTransfers(message);
-            messageService.save(new MessageCreateDTO(newMessage, user.getId(), recipient.getId()));
-            req.setAttribute(ALL_MESSAGES_FOR_USER_PARAM, messageService.get(user.getId()));
-            dispatcher.forward(req, resp);
+
         }
+        resp.sendRedirect(referer);
     }
     public String changeOfTransfers(String text){
         String oldBlank = "\n";

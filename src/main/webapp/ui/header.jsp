@@ -4,6 +4,7 @@
         <ul>
             <li><a href="/chat-project-1.0.0/ui/">Home</a></li>
             <li><a href="/chat-project-1.0.0/api/message">Messages</a></li>
+            <li><a href="/chat-project-1.0.0/ui/user/chats">Chats</a></li>
             <c:choose>
                 <c:when test="${sessionScope.user == null || empty sessionScope.user}">
                     <li style="float: right;"><a href="/chat-project-1.0.0/ui/signIn">Login</a></li>
