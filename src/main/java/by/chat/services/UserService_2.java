@@ -1,19 +1,17 @@
 package by.chat.services;
 
 
-import by.chat.core.dto.Role;
 import by.chat.core.dto.UserCreateDTO;
 import by.chat.core.dto.UserDTO;
 import by.chat.dao.api.IUserDao;
 import by.chat.services.api.IUserService;
 
-import java.util.Calendar;
 import java.util.List;
 
-public class UserService implements IUserService {
+public class UserService_2 implements IUserService {
     private final IUserDao userDao;
 
-    public UserService(IUserDao userDao) {
+    public UserService_2(IUserDao userDao) {
         this.userDao = userDao;
     }
 

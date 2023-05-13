@@ -65,7 +65,7 @@
 
 
   <properties>
-    <maven.tomcat.url>http://localhost:1010/manager/text</maven.tomcat.url>
+    <maven.tomcat.url>http://localhost:8080/manager/text</maven.tomcat.url>
     <maven.tomcat.server>TomcatServer8</maven.tomcat.server>
     <maven.tomcat.path>/${project.build.finalName}</maven.tomcat.path>
     <maven.compiler.source>17</maven.compiler.source>
