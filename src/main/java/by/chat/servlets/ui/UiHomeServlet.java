@@ -1,4 +1,4 @@
-package by.chat.servlets.api;
+package by.chat.servlets.ui;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,8 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "HomeServlet", urlPatterns = "/api/home")
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "HomeServlet", urlPatterns = "/ui/")
+public class UiHomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/ui/home.jspx").forward(req, resp);

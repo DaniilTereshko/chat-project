@@ -12,20 +12,15 @@
     </head>
     <body>
         <jsp:include page="header.jsp"/>
-        <form class="login" action="login" method="POST">
+        <form class="login" action="/chat-project-1.0.0/api/login" method="POST">
             <label for="login">Логин:</label>
             <input type="text" id="login" name="login" required/><br/>
             <label for="password">Пароль:</label>
             <input type="password" id="password" name="password" required/><br/>
             <div class="error-wrapper">
-                <c:choose>
-                  <c:when test="${not empty requestScope.loginError}">
-                    <div class="error">${requestScope.loginError}</div>
-                  </c:when>
-                  <c:when test="${not empty requestScope.passwordError}">
-                    <div class="error">${requestScope.passwordError}</div>
-                  </c:when>
-                </c:choose>
+                <c:if test="${not empty errorScope.errorCode}">
+                    <div class="error">${requestScope.errorCode}</div>
+                </c:if>
             </div>
             <input type="submit" value="Войти"/>
         </form>
