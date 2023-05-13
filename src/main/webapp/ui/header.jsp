@@ -3,7 +3,7 @@
     <nav>
         <ul>
             <li><a href="/chat-project-1.0.0/api/home">Home</a></li>
-            <li><a href="/chat-project-1.0.0/ui/user/message">Messages</a></li>
+            <li><a href="/chat-project-1.0.0/api/message">Messages</a></li>
             <li><a href="/chat-project-1.0.0/ui/user/chats">Chats</a></li>
             <c:choose>
                 <c:when test="${sessionScope.user == null || empty sessionScope.user}">
