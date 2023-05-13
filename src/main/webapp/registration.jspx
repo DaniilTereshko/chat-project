@@ -26,7 +26,7 @@
     <input type="password" id="password" name="password"/><br/>
     <label for="confirmed_password">Подтвердите пароль:</label>
     <input type="password" id="confirmed_password" name="confirmed_password"/><br/>
-    <input type="submit" value="Войти"/>
+    <input type="submit" value="зарегистрировать"/>
 </form>
 </body>
 </html>

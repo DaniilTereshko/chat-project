@@ -6,7 +6,6 @@ import by.chat.core.dto.UserCreateDTO;
 import by.chat.core.dto.UserDTO;
 import by.chat.services.api.IUserService;
 import by.chat.services.factory.UserServiceFactory;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -21,7 +20,7 @@ import java.util.Date;
 
 @WebServlet(name = "UserServlet", urlPatterns = "/api/user")
 
-public class UserServlet extends HttpServlet {
+public class UserServlet_2 extends HttpServlet {
     private static final String LOGIN_PARAM_NAME = "login";
     private static final String PASSWORD_PARAM_NAME = "password";
     private static final String CONFIRMED_PASSWORD_PARAM_NAME = "confirmed_password";
@@ -33,7 +32,7 @@ public class UserServlet extends HttpServlet {
 
     private final IUserService userService;
 
-    public UserServlet() {
+    public UserServlet_2() {
         this.userService = UserServiceFactory.getInstance();
     }
 
