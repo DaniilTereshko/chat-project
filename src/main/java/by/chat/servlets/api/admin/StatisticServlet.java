@@ -17,9 +17,9 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name="UserServlet",urlPatterns = "/api/admin/users")
+@WebServlet(name="StatisticServlet",urlPatterns = "/api/admin/statistics")
 
-public class UserServlet extends HttpServlet {
+public class StatisticServlet extends HttpServlet {
     private static final String LOGIN_PARAM_NAME = "login";
     private static final String PASSWORD_PARAM_NAME = "password";
     private static final String FIRST_NAME_PARAM_NAME = "firstName";
@@ -30,7 +30,7 @@ public class UserServlet extends HttpServlet {
     private final IUserService userService;
     private final IAdminService adminService;
 
-    public UserServlet() {
+    public StatisticServlet() {
         this.userService = UserServiceFactory.getInstance();
         this.adminService = AdminServiceFactory.getInstance();
     }
@@ -42,7 +42,7 @@ public class UserServlet extends HttpServlet {
         List<UserDTO> userDTOS = userService.get();
         req.setAttribute("users", userDTOS);
         req.setAttribute("roles", Role.values());
-        req.getRequestDispatcher("/ui/admin/users.jsp").forward(req,resp);
+        req.getRequestDispatcher("/ui/admin/statistics.jsp").forward(req,resp);
     }
 
     @Override
