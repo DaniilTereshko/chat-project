@@ -3,8 +3,11 @@
     <nav>
         <ul>
             <li><a href="/chat-project-1.0.0/ui/">Home</a></li>
-            <li><a href="/chat-project-1.0.0/api/message">Messages</a></li>
+            <li><a href="/chat-project-1.0.0/ui/user/message">Messages</a></li>
             <li><a href="/chat-project-1.0.0/ui/user/chats">Chats</a></li>
+            <c:if test="${sessionScope.user != null and sessionScope.user.role.getRoleName() == 'ADMIN'}">
+                    <li><a href="/chat-project-1.0.0/api/admin/users">Users</a></li>
+            </c:if>
             <c:choose>
                 <c:when test="${sessionScope.user == null || empty sessionScope.user}">
                     <li style="float: right;"><a href="/chat-project-1.0.0/ui/signIn">Login</a></li>
@@ -22,10 +25,5 @@
                 </c:otherwise>
             </c:choose>
         </ul>
-        <c:if test="${sessionScope.user != null and sessionScope.user.role.getRoleName() == 'ADMIN'}">
-            <ul>
-                <li><a href="/chat-project-1.0.0/api/admin/users">Users</a></li>
-            </ul>
-        </c:if>
     </nav>
 </header>
