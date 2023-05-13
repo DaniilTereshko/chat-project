@@ -60,6 +60,5 @@ public class UserServlet extends HttpServlet {
             req.setAttribute("error", "Ошибка выполнения");
         }
         doGet(req,resp);
-        //resp.sendRedirect(req.getContextPath() + "/api/admin/users");
     }
 }
