@@ -20,7 +20,7 @@
     </head>
     <body>
     <jsp:include page="../header.jsp"/>
-    <form class="message" action="http://localhost:1010/chat-project-1.0.0/api/message" method="post">
+    <form class="message" action="/chat-project-1.0.0/api/message" method="post">
         <div class="wraper-message">
         <div class="wraper-message-1">
         <h3>New Message<br/>
@@ -37,7 +37,7 @@
         <div class="wraper-message-3">
             <jstl:choose>
             <jstl:when test="${not empty answerLogin}">
-                <input type="text" name="toUser"  placeholder="login" value="${answerLogin}"/>
+                <input type="text" name="toUser"  placeholder="login" value="${answerLogin}" />
             </jstl:when>
             <jstl:when test="${empty answerLogin}">
                 <input type="text" name="toUser"  placeholder="login"/>
@@ -45,7 +45,7 @@
         </jstl:choose>
         </div>
         <div class="wraper-message-4">
-        <textarea   style="resize: none" id="ta" name="message" rows="6" placeholder="write here!">${text}</textarea>
+        <textarea id="ta" name="message" rows="6" placeholder="write here!" >${text}</textarea>
         </div>
         <div class="wraper-message-5">
         <input type="submit" value="Send"/>

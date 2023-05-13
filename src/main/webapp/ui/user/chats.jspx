@@ -26,12 +26,12 @@
             <div class="header-time">${message.date}</div>
             <div class="body-message border">${message.message}</div>
             <div class="buuton-answer">
-                <form action="http://localhost:1010/chat-project-1.0.0//ui/user/chats" method="get">
+                <form action="/chat-project-1.0.0//ui/user/message" method="get">
                     <button name="answerLogin" value="${message.fromUserId}">reply</button>
                 </form>
             </div>
             <div class="buuton-delet">
-                <form action="http://localhost:1010/chat-project-1.0.0/api/message" method="post">
+                <form action="/chat-project-1.0.0/api/message" method="post">
                     <button name="messageId" value="${message.id}">delet</button>
                 </form>
             </div>
