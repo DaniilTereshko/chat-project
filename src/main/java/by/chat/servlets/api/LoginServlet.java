@@ -32,8 +32,12 @@ public class LoginServlet extends HttpServlet {
         String login = req.getParameter(LOGIN_PARAM_NAME);
         String password = req.getParameter(PASSWORD_PARAM_NAME);
         UserDTO userDTO = userService.get(login);
-        int index = referer.indexOf("?");
-        String result = (index >= 0) ? referer.substring(0, index) : referer;
+        String result = null;
+        if(referer!=null) {
+            int index = referer.indexOf("?");
+            result = (index >= 0) ? referer.substring(0, index) : referer;
+        }
+
         if(userDTO == null){
             result+="?" + ERROR + "=" + LoginException.LOGIN_ERROR.ordinal();
             resp.sendRedirect(result);
