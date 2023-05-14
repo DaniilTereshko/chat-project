@@ -1,5 +1,6 @@
 package by.chat.servlets.ui;
 
+import by.chat.core.exception.LoginException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,10 +18,10 @@ public class UiLoginServlet extends HttpServlet {
         if(error != null){
             errorCode = Integer.parseInt(error);
         }
-        if(errorCode == 1){
+        if(errorCode == LoginException.LOGIN_ERROR.ordinal()){
             req.setAttribute(ERROR, "Пользователя с таким логином не существует");
         }
-        if(errorCode == 2){
+        if(errorCode == LoginException.PASSWORD_ERROR.ordinal()){
             req.setAttribute(ERROR, "Неверный пароль");
         }
         req.getRequestDispatcher("/ui/login.jsp").forward(req,resp);

@@ -3,6 +3,7 @@ package by.chat.servlets.api.admin;
 
 import by.chat.core.dto.Role;
 import by.chat.core.dto.UserDTO;
+import by.chat.core.exception.UsersException;
 import by.chat.services.api.IAdminService;
 import by.chat.services.api.IUserService;
 import by.chat.services.factory.AdminServiceFactory;
@@ -54,10 +55,10 @@ public class UsersServlet extends HttpServlet {
         int index = referer.indexOf("?");
         String result = (index >= 0) ? referer.substring(0, index) : referer;
         if(!dtoRole.equals(userDTO.getRole())){
-            result+="?" + ERROR + "=0";
+            result+="?" + ERROR + "=" + UsersException.SUCCESS.ordinal();
             resp.sendRedirect(result);
         }else {
-            result+="?" + ERROR + "=1";
+            result+="?" + ERROR + "="+UsersException.ERROR.ordinal();
             resp.sendRedirect(result);
         }
     }

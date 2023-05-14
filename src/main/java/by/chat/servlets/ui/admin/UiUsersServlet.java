@@ -2,6 +2,7 @@ package by.chat.servlets.ui.admin;
 
 import by.chat.core.dto.Role;
 import by.chat.core.dto.UserDTO;
+import by.chat.core.exception.UsersException;
 import by.chat.services.api.IAdminService;
 import by.chat.services.api.IUserService;
 import by.chat.services.factory.AdminServiceFactory;
@@ -35,10 +36,10 @@ public class UiUsersServlet extends HttpServlet {
         if(error != null){
             int errorCode = 0;
             errorCode = Integer.parseInt(error);
-            if(errorCode == 0){
+            if(errorCode == UsersException.SUCCESS.ordinal()){
                 req.setAttribute(ERROR, "Операция прошла успешно");
             }
-            if(errorCode == 1){
+            if(errorCode == UsersException.ERROR.ordinal()){
                 req.setAttribute(ERROR, "Операция не выполнена");
             }
         }
