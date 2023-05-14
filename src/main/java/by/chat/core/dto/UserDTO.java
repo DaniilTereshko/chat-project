@@ -4,6 +4,7 @@ package by.chat.core.dto;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class UserDTO {
     private int id;
@@ -111,4 +112,16 @@ public class UserDTO {
         this.role = role;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserDTO userDTO = (UserDTO) o;
+        return id == userDTO.id && Objects.equals(login, userDTO.login) && Objects.equals(password, userDTO.password) && Objects.equals(firstName, userDTO.firstName) && Objects.equals(middleName, userDTO.middleName) && Objects.equals(lastName, userDTO.lastName) && Objects.equals(birthday, userDTO.birthday) && Objects.equals(registrationDate, userDTO.registrationDate) && role == userDTO.role;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, password, firstName, middleName, lastName, birthday, registrationDate, role);
+    }
 }
