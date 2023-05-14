@@ -7,7 +7,7 @@ import java.io.IOException;
 
 
 @WebFilter(
-        filterName = "setContentTypeFilter",
+        filterName = "SetContentTypeFilter",
         urlPatterns = "/*",
         dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD}
 )

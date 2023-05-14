@@ -43,7 +43,7 @@
             </thead>
             <tbody>
                 <c:forEach var="user" items="${requestScope.users}">
-                    <form action="users" method="post">
+                    <form action="/chat-project-1.0.0/api/admin/users" method="post">
                         <tr>
                             <td>${user.id}</td>
                             <td>${user.login}</td>

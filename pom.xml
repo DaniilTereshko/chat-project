@@ -31,6 +31,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.13.0</version>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.10</version>
@@ -65,7 +70,7 @@
 
 
   <properties>
-    <maven.tomcat.url>http://localhost:8080/manager/text</maven.tomcat.url>
+    <maven.tomcat.url>http://localhost:1010/manager/text</maven.tomcat.url>
     <maven.tomcat.server>TomcatServer8</maven.tomcat.server>
     <maven.tomcat.path>/${project.build.finalName}</maven.tomcat.path>
     <maven.compiler.source>17</maven.compiler.source>
