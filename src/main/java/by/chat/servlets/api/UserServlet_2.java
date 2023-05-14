@@ -1,4 +1,4 @@
-package by.chat.servlets;
+package by.chat.servlets.api;
 
 
 import by.chat.core.dto.Role;
@@ -41,7 +41,7 @@ public class UserServlet_2 extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // палучаем параметры
         Calendar calendar = Calendar.getInstance();
-
+        Date birthday_date = null;
         String login = req.getParameter(LOGIN_PARAM_NAME);
         String password = req.getParameter(PASSWORD_PARAM_NAME);
         String confirmedPassword = req.getParameter(CONFIRMED_PASSWORD_PARAM_NAME);
@@ -74,13 +74,13 @@ public class UserServlet_2 extends HttpServlet {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Вы не ввели дату роджения");
         } else {
             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-            Date date = null;
+
             try {
-                date = sdf.parse(birthday);
+                birthday_date = sdf.parse(birthday);
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-            calendar.setTime(date);
+
         }
 
         // сохраняем нового пользователя
@@ -90,8 +90,8 @@ public class UserServlet_2 extends HttpServlet {
                 firstName,
                 middleName,
                 lastName,
-                calendar,
-                Calendar.getInstance(),
+                birthday_date,
+                new Date(),
                 Role.USER
         );
         userService.save(userCreateDTO);
