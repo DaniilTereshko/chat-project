@@ -5,7 +5,7 @@ import by.chat.services.api.IStatisticsService;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class StatisticsService implements IStatisticsService {
-    AtomicInteger activeUserCounter;
+    private AtomicInteger activeUserCounter;
 
     public StatisticsService() {
         this.activeUserCounter.set(0);
