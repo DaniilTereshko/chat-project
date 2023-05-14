@@ -6,6 +6,7 @@ import by.chat.core.dto.UserDTO;
 import by.chat.dao.api.IUserDao;
 import by.chat.services.api.IUserService;
 
+import java.util.Date;
 import java.util.List;
 
 public class UserService_2 implements IUserService {
@@ -23,18 +24,20 @@ public class UserService_2 implements IUserService {
 
     @Override
     public UserDTO save(UserCreateDTO item) {
+
         UserDTO userDTO = new UserDTO();
- //     userDTO.setId(item.hashCode());
-        userDTO.setId(userDao.get().size() + 1);
+        userDTO.setId(item.hashCode());
         userDTO.setLogin(item.getLogin());
         userDTO.setFirstName(item.getFirstName());
         userDTO.setMiddleName(item.getMiddleName());
         userDTO.setLastName(item.getLastName());
         userDTO.setBirthday(item.getBirthday());
         userDTO.setPassword(item.getPassword());
-        userDTO.setRegistrationDate(item.getRegistrationDate());
+        userDTO.setRegistrationDate(new Date());
         userDTO.setRole(item.getRole());
         return userDTO;
+
+        // Добавляем объект User в Session ?
     }
 
     @Override

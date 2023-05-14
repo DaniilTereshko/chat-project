@@ -1,7 +1,6 @@
 package by.chat.core.dto;
 
 
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -14,7 +13,7 @@ public class UserCreateDTO {
     private String middleName;
     private String lastName;
     private Date birthday;
-    private Date registrationDate;
+
     private Role role;
 
     public UserCreateDTO() {
@@ -26,7 +25,6 @@ public class UserCreateDTO {
                          String middleName,
                          String lastName,
                          Date birthday,
-                         Date registrationDate,
                          Role role) {
         this.id = id;
         this.login = login;
@@ -35,7 +33,6 @@ public class UserCreateDTO {
         this.middleName = middleName;
         this.lastName = lastName;
         this.birthday = birthday;
-        this.registrationDate = registrationDate;
         this.role = role;
     }
 
@@ -88,13 +85,9 @@ public class UserCreateDTO {
         this.birthday = birthday;
     }
 
-    public Date getRegistrationDate() {
-        return registrationDate;
-    }
 
-    public void setRegistrationDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
-    }
+
+
 
     public Role getRole() {
         return role;
@@ -104,5 +97,16 @@ public class UserCreateDTO {
         this.role = role;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserCreateDTO that = (UserCreateDTO) o;
+        return id == that.id && Objects.equals(login, that.login) && Objects.equals(password, that.password) && Objects.equals(firstName, that.firstName) && Objects.equals(middleName, that.middleName) && Objects.equals(lastName, that.lastName) && Objects.equals(birthday, that.birthday) && role == that.role;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, password, firstName, middleName, lastName, birthday, new Date(), role);
+    }
 }

@@ -20,7 +20,7 @@ import java.util.Date;
 
 @WebServlet(name = "UserServlet", urlPatterns = "/api/user")
 
-public class UserServlet_2 extends HttpServlet {
+public class UserServlet extends HttpServlet {
     private static final String LOGIN_PARAM_NAME = "login";
     private static final String PASSWORD_PARAM_NAME = "password";
     private static final String CONFIRMED_PASSWORD_PARAM_NAME = "confirmed_password";
@@ -32,7 +32,7 @@ public class UserServlet_2 extends HttpServlet {
 
     private final IUserService userService;
 
-    public UserServlet_2() {
+    public UserServlet() {
         this.userService = UserServiceFactory.getInstance();
     }
 
@@ -91,7 +91,6 @@ public class UserServlet_2 extends HttpServlet {
                 middleName,
                 lastName,
                 birthday_date,
-                new Date(),
                 Role.USER
         );
         userService.save(userCreateDTO);
