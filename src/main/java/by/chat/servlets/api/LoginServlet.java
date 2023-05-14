@@ -1,6 +1,7 @@
 package by.chat.servlets.api;
 
 import by.chat.core.dto.UserDTO;
+import by.chat.core.exception.LoginException;
 import by.chat.services.api.IUserService;
 import by.chat.services.factory.UserServiceFactory;
 import jakarta.servlet.ServletException;
@@ -34,10 +35,10 @@ public class LoginServlet extends HttpServlet {
         int index = referer.indexOf("?");
         String result = (index >= 0) ? referer.substring(0, index) : referer;
         if(userDTO == null){
-            result+="?" + ERROR + "=1";
+            result+="?" + ERROR + "=" + LoginException.LOGIN_ERROR.ordinal();
             resp.sendRedirect(result);
         } else if (!userDTO.getPassword().equals(password)){
-            result += "?" + ERROR + "=2";
+            result += "?" + ERROR + "=" + LoginException.PASSWORD_ERROR.ordinal();
             resp.sendRedirect(result);
         } else {
             session.setAttribute("user", userDTO);
