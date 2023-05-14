@@ -1,4 +1,4 @@
-package by.chat.servlets;
+package by.chat.servlets.api;
 
 
 import by.chat.core.dto.Role;
