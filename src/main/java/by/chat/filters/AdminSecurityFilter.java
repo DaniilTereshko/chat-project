@@ -23,10 +23,10 @@ public class AdminSecurityFilter implements Filter {
             if(user.getRole() == Role.ADMIN){
                 filterChain.doFilter(servletRequest, servletResponse);
             } else{
-                resp.sendRedirect(contextPath + "/api/home");
+                resp.sendRedirect(contextPath + "/ui/");
             }
         }else {
-            resp.sendRedirect(contextPath + "/api/login");
+            resp.sendRedirect(contextPath + "/ui/signIn");
         }
     }
 }
