@@ -27,12 +27,12 @@
             <div class="body-message border">${message.message}</div>
             <div class="buuton-answer">
                 <form action="/chat-project-1.0.0//ui/user/message" method="get">
-                    <button name="answerLogin" value="${message.fromUserId}">reply</button>
+                    <button name="answerLogin" value="${message.fromUserId}">Ответить</button>
                 </form>
             </div>
             <div class="buuton-delet">
                 <form action="/chat-project-1.0.0/api/message" method="post">
-                    <button name="messageId" value="${message.id}">delet</button>
+                    <button name="messageId" value="${message.id}">Удалить</button>
                 </form>
             </div>
         </div>
