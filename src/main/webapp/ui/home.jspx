@@ -24,7 +24,7 @@
                         <c:forEach items="${users}" var="user">
                             <li class="wraper">
                                 <div class="wraper-1">
-                                    ${user.lastName} ${user.firstName} ${user.firstName}
+                                    ${user.lastName} ${user.firstName} ${user.middleName}
                                     <c:if test="${ user.role eq'ADMIN'}"> Админ</c:if>
                                 </div>
                                 <div class="wraper-2">
