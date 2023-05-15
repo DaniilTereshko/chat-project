@@ -4,6 +4,8 @@ package by.chat.servlets.api;
 import by.chat.core.dto.Role;
 import by.chat.core.dto.UserCreateDTO;
 import by.chat.core.dto.UserDTO;
+import by.chat.core.exception.LoginException;
+import by.chat.core.exception.UserException;
 import by.chat.services.api.IUserService;
 import by.chat.services.factory.UserServiceFactory;
 import jakarta.servlet.ServletException;
@@ -11,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -28,7 +31,8 @@ public class UserServlet extends HttpServlet {
     private static final String MIDDLE_NAME_PARAM_NAME = "middleName";
     private static final String LAST_NAME_PARAM_NAME = "lastName";
     private static final String BIRTHDAY_PARAM_NAME = "birthday";
-
+    private static final String REFERER_HEADER = "Referer";
+    private static final String ERROR = "errorCode";
 
     private final IUserService userService;
 
@@ -39,8 +43,9 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String referer = req.getHeader(REFERER_HEADER);
+        HttpSession session = req.getSession();
         // палучаем параметры
-        Calendar calendar = Calendar.getInstance();
         Date birthday_date = null;
         String login = req.getParameter(LOGIN_PARAM_NAME);
         String password = req.getParameter(PASSWORD_PARAM_NAME);
@@ -50,49 +55,56 @@ public class UserServlet extends HttpServlet {
         String lastName = req.getParameter(LAST_NAME_PARAM_NAME);
         String birthday = req.getParameter(BIRTHDAY_PARAM_NAME);
 
+        String result = null;
+        if(referer!=null) {
+            int index = referer.indexOf("?");
+            result = (index >= 0) ? referer.substring(0, index) : referer;
+        }
         // проверяем на совпадение такого user по логину
         // проверяем на заполнение полей
-        if ((login == null) || (login == "")) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Вы не ввели логин");
-        } else {
-            UserDTO userDTO = userService.get(login);
-            if (userDTO != null) {
-                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Пользователь с таким логином уже существует");
-            }
-        }
-        if((password == null) || (password == "")){
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Вы не пароль");
+        if ((login == null) || (login.equals(""))) {
+            result+="?" + ERROR + "=" + UserException.EMPTY_LOGIN_ERROR.ordinal();
+            resp.sendRedirect(result);
+        } else if(userService.get(login) != null){
+            result+="?" + ERROR + "=" + UserException.USER_EXIST.ordinal();
+            resp.sendRedirect(result);
+        } else if((password == null) || (password.equals(""))){
+            result+="?" + ERROR + "=" + UserException.EMPTY_PASSWORD_ERROR.ordinal();
+            resp.sendRedirect(result);
         } else if (!password.equals(confirmedPassword)) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Введённые пароли не совпадают");
-        } else if ((firstName == null) || (firstName == "")) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Вы не ввели имя");
-        } else if ((middleName == null)||(middleName == "")) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Вы не ввели отчество");
-        } else if ((lastName == null) || (lastName == "")) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Вы не ввели фамилию");
-        } else if ((birthday == null) || (birthday == "  .  .    ") || (birthday == ""))  {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Вы не ввели дату роджения");
+            result+="?" + ERROR + "=" + UserException.PASSWORDS_MATCH_ERROR.ordinal();
+            resp.sendRedirect(result);
+        } else if ((firstName == null) || (firstName.equals(""))) {
+            result+="?" + ERROR + "=" + UserException.EMPTY_FIRSTNAME_ERROR.ordinal();
+            resp.sendRedirect(result);
+        } else if ((middleName == null)||(middleName.equals(""))) {
+            result+="?" + ERROR + "=" + UserException.EMPTY_MIDDLENAME_ERROR.ordinal();
+            resp.sendRedirect(result);
+        } else if ((lastName == null) || (lastName.equals(""))) {
+            result+="?" + ERROR + "=" + UserException.EMPTY_LASTNAME_ERROR.ordinal();
+            resp.sendRedirect(result);
+        } else if ((birthday == null) || (birthday.equals("  -  -    ")) || (birthday.equals("")))  {
+            result+="?" + ERROR + "=" + UserException.EMPTY_BIRTHDAY_ERROR.ordinal();
+            resp.sendRedirect(result);
         } else {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             try {
                 birthday_date = sdf.parse(birthday);
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-
+            UserCreateDTO userCreateDTO = new UserCreateDTO(
+                    login,
+                    password,
+                    firstName,
+                    middleName,
+                    lastName,
+                    birthday_date,
+                    Role.USER
+            );
+            UserDTO user = userService.save(userCreateDTO);
+            session.setAttribute("user", user);
+            resp.sendRedirect(req.getContextPath() + "/ui/");
         }
-
-        // сохраняем нового пользователя
-        UserCreateDTO userCreateDTO = new UserCreateDTO(
-                login,
-                password,
-                firstName,
-                middleName,
-                lastName,
-                birthday_date,
-                Role.USER
-        );
-        userService.save(userCreateDTO);
     }
 }

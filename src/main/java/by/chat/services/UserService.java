@@ -27,7 +27,7 @@ public class UserService implements IUserService {
     @Override
     public UserDTO save(UserCreateDTO item) {
         UserDTO userDTO = new UserDTO();
-        userDTO.setId(item.hashCode());
+        userDTO.setId(userDao.get().size()+1);
         userDTO.setLogin(item.getLogin());
         userDTO.setFirstName(item.getFirstName());
         userDTO.setMiddleName(item.getMiddleName());
@@ -36,6 +36,7 @@ public class UserService implements IUserService {
         userDTO.setPassword(item.getPassword());
         userDTO.setRegistrationDate(new Date());
         userDTO.setRole(item.getRole());
+        userDao.save(userDTO);
         return userDTO;
     }
 

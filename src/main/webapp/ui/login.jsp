@@ -18,10 +18,11 @@
             <label for="password">Пароль:</label>
             <input type="password" id="password" name="password" required/><br/>
             <div class="error-wrapper">
-                <c:if test="${not empty errorScope.errorCode}">
+                <c:if test="${not empty requestScope.errorCode}">
                     <div class="error">${requestScope.errorCode}</div>
                 </c:if>
             </div>
+            <a href="/chat-project-1.0.0/ui/signUp">Регистрация</a>
             <input type="submit" value="Войти"/>
         </form>
     </body>
