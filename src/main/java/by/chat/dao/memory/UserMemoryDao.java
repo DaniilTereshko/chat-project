@@ -82,4 +82,9 @@ public class UserMemoryDao implements IUserDao {
     public UserDTO get(String login) {
         return users.values().stream().filter(v -> v.getLogin().equals(login)).findFirst().orElse(null);
     }
+
+    @Override
+    public UserDTO delete(int id) {
+        return users.remove(id);
+    }
 }

@@ -6,9 +6,5 @@ import by.chat.core.dto.MessageDTO;
 import java.util.List;
 
 public interface IMessageDao extends ICRUDDao<MessageDTO>{
-    Integer delet(int id);
-
-
-
-
+    Integer delete(int id);
 }

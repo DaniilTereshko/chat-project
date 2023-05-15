@@ -24,6 +24,7 @@ import java.util.List;
 public class UsersServlet extends HttpServlet {
     private static final String ERROR = "error";
     private static final String REFERER_HEADER = "Referer";
+    private static final String USER_DELETE_ID = "userId";
     private final IUserService userService;
     private final IAdminService adminService;
 
@@ -43,6 +44,7 @@ public class UsersServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String userId = req.getParameter(USER_DELETE_ID);
         HttpSession session = req.getSession();
         String referer = req.getHeader(REFERER_HEADER);
         UserDTO user = (UserDTO) session.getAttribute("user");
@@ -51,6 +53,10 @@ public class UsersServlet extends HttpServlet {
         UserDTO userDTO = userService.get(id);
         Role dtoRole = userDTO.getRole();
         adminService.changeRole(userDTO, role, user);
+        if(userId != null){
+            int i = Integer.parseInt(userId);
+            userService.delete(i);
+        }
 
         int index = referer.indexOf("?");
         String result = (index >= 0) ? referer.substring(0, index) : referer;
