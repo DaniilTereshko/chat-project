@@ -11,10 +11,9 @@ public class AdminServiceFactory {
     }
     public static IAdminService getInstance(){
         if (instance == null) {
-            synchronized (MessageDaoFactory.class) {
+            synchronized (AdminServiceFactory.class) {
                 if (instance == null) {
-                    instance = new AdminService(UserServiceFactory.getInstance()) {
-                    };
+                    instance = new AdminService(UserServiceFactory.getInstance()) ;
                 }
             }
         }
