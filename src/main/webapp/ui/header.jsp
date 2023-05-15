@@ -22,6 +22,7 @@
                   <li style="float: right;"><span>Login: ${sessionScope.user.login} Role: ${sessionScope.user.role.getRoleName()}</span></li>
                 </c:when>
                 <c:otherwise>
+                <li style="float: right;"><a href="/chat-project-1.0.0/ui/signUp">Registration</a></li>
                   <li style="float: right;"><span>Login: guest Role: unknown</span></li>
                 </c:otherwise>
             </c:choose>
