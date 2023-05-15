@@ -7,16 +7,49 @@
         <title>Home</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ui/styles/header.css"/>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ui/styles/home.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ui/styles/home2.css"/>
     </head>
     <body>
         <jsp:include page="header.jsp"/>
+        <div class="main">
         <c:choose>
             <c:when test="${not empty sessionScope.user.getLogin()}">
-                <h1>Hello, ${sessionScope.user.getLogin()}!</h1>
+                <div>
+                <h1>Привет, ${sessionScope.user.firstName}!</h1>
+                    <p>
+                        Если у тебя возникли вопросы по использованию чата , свяжитесь с администратором!
+                    </p>
+                    <h3>Список пользователей</h3>
+                    <lu type="none">
+                        <c:forEach items="${users}" var="user">
+                            <li class="wraper">
+                                <div class="wraper-1">
+                                    ${user.lastName} ${user.firstName} ${user.firstName}
+                                    <c:if test="${ user.role eq'ADMIN'}"> Админ</c:if>
+                                </div>
+                                <div class="wraper-2">
+                                    <form action="/chat-project-1.0.0//ui/user/message" method="get">
+                                    <button name="answerLogin" value="${user.id}">Написать</button>
+                                </form>
+                                </div>
+                            </li>
+                            <hr/>
+                        </c:forEach>
+                    </lu>
+                </div>
             </c:when>
             <c:otherwise>
-                <h1>Hello, guest!</h1>
+                <div>
+                <h1>Чат для своих.</h1>
+                <p>
+                    Привет, друг! Ты попал на главную страницу чата. Для использования чата необходима
+                    <a href="/chat-project-1.0.0/ui/signUp">регистрация!</a>
+                    После регистрации на главной странице тебе будет доступен список пользователей которым
+                    ты сможеь написать!
+                </p>
+                </div>
             </c:otherwise>
         </c:choose>
+        </div>
     </body>
 </html>
