@@ -12,16 +12,10 @@ import jakarta.servlet.http.HttpSessionListener;
 // Листенер который слушает изменение атрибутов
 @WebListener
 public class SessionAttributeListener implements HttpSessionAttributeListener {
-    IStatisticsService statisticsService;
-
-    public SessionAttributeListener(IStatisticsService statisticsService) {
-        this.statisticsService = StatisticsServiceFactory.getInstance();
-
-    }
 
     @Override
     public void attributeAdded(HttpSessionBindingEvent event) {
-
+        IStatisticsService statisticsService = StatisticsServiceFactory.getInstance();
         //event.getName() + ": " + event.getValue()
         if (event.getName() == "user") {
             UserDTO user = (UserDTO) event.getSession().getAttribute("user");
@@ -34,6 +28,7 @@ public class SessionAttributeListener implements HttpSessionAttributeListener {
 
     @Override
     public void attributeRemoved(HttpSessionBindingEvent event) {
+        IStatisticsService statisticsService = StatisticsServiceFactory.getInstance();
         if (event.getName() == "user") {
             UserDTO user = (UserDTO) event.getSession().getAttribute("user");
             if (user != null) {

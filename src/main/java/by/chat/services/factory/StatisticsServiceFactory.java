@@ -14,7 +14,7 @@ public class StatisticsServiceFactory {
 
     public static IStatisticsService getInstance() {
         if (instance == null) {
-            synchronized (StatisticsService.class) {
+            synchronized (StatisticsServiceFactory.class) {
                 if (instance == null) {
                     instance = new StatisticsService() {
                     };
