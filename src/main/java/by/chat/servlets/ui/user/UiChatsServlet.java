@@ -31,8 +31,6 @@ public class UiChatsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.setCharacterEncoding("utf-8");
-        resp.setContentType("text/html; charset=utf-8");
         HttpSession session = req.getSession();
         UserDTO user = (UserDTO) session.getAttribute(USER_PARAM_OBJECT);
         List<MessageDTO> messages = messageService.usersMessages(user.getId());
