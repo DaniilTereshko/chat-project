@@ -4,9 +4,13 @@ package by.chat.servlets.api.admin;
 import by.chat.core.dto.Role;
 import by.chat.core.dto.UserDTO;
 import by.chat.services.api.IAdminService;
+import by.chat.services.api.IMessageStatisticsService;
 import by.chat.services.api.IUserService;
+import by.chat.services.api.IUserStatisticsService;
 import by.chat.services.factory.AdminServiceFactory;
+import by.chat.services.factory.MessageStatisticsServiceFactory;
 import by.chat.services.factory.UserServiceFactory;
+import by.chat.services.factory.UserStatisticServiceFactory;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,34 +19,30 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 
 @WebServlet(name="StatisticServlet",urlPatterns = "/api/admin/statistics")
 
 public class StatisticServlet extends HttpServlet {
-    private static final String LOGIN_PARAM_NAME = "login";
-    private static final String PASSWORD_PARAM_NAME = "password";
-    private static final String FIRST_NAME_PARAM_NAME = "firstName";
-    private static final String MIDDLE_NAME_PARAM_NAME = "middleName";
-    private static final String LAST_NAME_PARAM_NAME = "lastName";
-    private static final String BIRTHDAY_PARAM_NAME = "birthday";
-
     private final IUserService userService;
     private final IAdminService adminService;
+    private final IMessageStatisticsService messageStatistics;
+    private final IUserStatisticsService userStatisticsService;
 
     public StatisticServlet() {
         this.userService = UserServiceFactory.getInstance();
         this.adminService = AdminServiceFactory.getInstance();
+        this.messageStatistics = MessageStatisticsServiceFactory.getInstance();
+        this.userStatisticsService = UserStatisticServiceFactory.getInstance();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-        resp.setContentType("text/html; charset=UTF-8");
-        List<UserDTO> userDTOS = userService.get();
-        req.setAttribute("users", userDTOS);
-        req.setAttribute("roles", Role.values());
-        req.getRequestDispatcher("/ui/admin/users.jsp").forward(req,resp);
+        PrintWriter writer =resp.getWriter();
+
+        writer.write("Количество активных пользователей: " + userStatisticsService.getCountActiveUsers() + "<br>");
+        writer.write("Количество пользователей: " + userStatisticsService.getCountUsers() + "<br>");
+        writer.write("Количество сообщений: " + messageStatistics.getCountMessages());
     }
 
     @Override

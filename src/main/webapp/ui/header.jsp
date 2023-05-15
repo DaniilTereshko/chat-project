@@ -7,6 +7,7 @@
             <li><a href="/chat-project-1.0.0/ui/user/chats">Chats</a></li>
             <c:if test="${sessionScope.user != null and sessionScope.user.role.getRoleName() == 'ADMIN'}">
                     <li><a href="/chat-project-1.0.0/ui/admin/users">Users</a></li>
+                    <li><a href="/chat-project-1.0.0/ui/admin/statistics">Statistics</a></li>
             </c:if>
             <c:choose>
                 <c:when test="${sessionScope.user == null || empty sessionScope.user}">
