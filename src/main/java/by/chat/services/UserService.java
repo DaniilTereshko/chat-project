@@ -49,4 +49,9 @@ public class UserService implements IUserService {
     public UserDTO get(String login) {
         return userDao.get(login);
     }
+
+    @Override
+    public UserDTO delete(int id) {
+        return userDao.delete(id);
+    }
 }

@@ -41,7 +41,7 @@ public class MessageService implements IMessageService {
 
     @Override
     public Integer delet(int id) {
-        messageDao.delet(id);
+        messageDao.delete(id);
         return id;
     }
 

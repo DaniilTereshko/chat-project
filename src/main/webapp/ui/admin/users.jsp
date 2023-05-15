@@ -60,6 +60,11 @@
                                     <input type="radio" name="role" value="${r.getRoleName()}" ${user.role.getRoleName() == r.getRoleName() ? 'checked' : ''}>
                                 </label>
                                 </c:forEach>
+                                <label>
+                                     Удалить:
+                                    <input type="checkbox" name="userId" value="${user.id}">
+                                </label>
+
                             </td>
                             <input type="hidden" name="id" value="${user.id}"/>
                             <td><input type="submit" class="submit-button"/></td>

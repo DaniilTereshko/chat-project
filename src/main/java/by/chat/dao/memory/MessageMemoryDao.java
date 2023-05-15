@@ -33,7 +33,7 @@ public class MessageMemoryDao implements IMessageDao {
     }
 
     @Override
-    public synchronized Integer delet(int id) {
+    public synchronized Integer delete(int id) {
         dao.remove(id);
         return id;
     }
