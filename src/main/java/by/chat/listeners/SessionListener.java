@@ -9,14 +9,10 @@ import jakarta.servlet.http.HttpSessionListener;
 
 @WebListener
 public class SessionListener implements HttpSessionListener {
-    IStatisticsService statisticsService;
-
-    public SessionListener(IStatisticsService statisticsService) {
-        this.statisticsService = StatisticsServiceFactory.getInstance();
-    }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
+        IStatisticsService statisticsService = StatisticsServiceFactory.getInstance();
         // если сессия содержала объект user и была уничтожена по каким-либо причинам учитываем этот факт
         UserDTO user = (UserDTO) se.getSession().getAttribute("user");
         if (user != null) {

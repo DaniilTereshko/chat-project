@@ -44,21 +44,4 @@ public class StatisticServlet extends HttpServlet {
         writer.write("Количество пользователей: " + userStatisticsService.getCountUsers() + "<br>");
         writer.write("Количество сообщений: " + messageStatistics.getCountMessages());
     }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        UserDTO user = (UserDTO) session.getAttribute("user");
-        String role = req.getParameter("role");
-        int id = Integer.parseInt(req.getParameter("id"));
-        UserDTO userDTO = userService.get(id);
-        Role dtoRole = userDTO.getRole();
-        adminService.changeRole(userDTO, role, user);
-        if(!dtoRole.equals(userDTO.getRole())){
-            req.setAttribute("ok", "Операция прошла успешно");
-        }else {
-            req.setAttribute("error", "Ошибка выполнения");
-        }
-        doGet(req,resp);
-    }
 }
