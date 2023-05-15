@@ -45,8 +45,6 @@ public class MessageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.setCharacterEncoding("utf-8");
-        resp.setContentType("text/html; charset=utf-8");
         HttpSession session = req.getSession();
         PrintWriter writer = resp.getWriter();
         UserDTO user = (UserDTO) session.getAttribute(USER_PARAM_OBJECT);
@@ -64,42 +62,41 @@ public class MessageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.setCharacterEncoding("utf-8");
-        resp.setContentType("text/html; charset=utf-8");
-        String referer = req.getHeader(REFERER_HEADER);
         HttpSession session = req.getSession();
-        session.removeAttribute("loginError");
+        String referer = req.getHeader(REFERER_HEADER);
         UserDTO user = (UserDTO) session.getAttribute(USER_PARAM_OBJECT);
-        Map<String,String[]> parametrMap = req.getParameterMap();
-        int index = referer.indexOf("?");
-        referer = index >= 0 ? referer.substring(0,index) : referer;
-
-        if(parametrMap.get(MESSAGES_DELET_PARAM)!= null&&parametrMap.get(MESSAGES_DELET_PARAM)[0]!= null){
-            Integer ID = Integer.parseInt(parametrMap.get(MESSAGES_DELET_PARAM)[0]);
+        String deleteParam = req.getParameter(MESSAGES_DELET_PARAM);
+        String nameParam = req.getParameter(TO_USER_PARAM_ID);
+        String messageParam = req.getParameter(MESSAGE_PARAM);
+        UserDTO recipient = userService.get(nameParam);
+        if (referer != null) {
+            int index = referer.indexOf("?");
+            referer = index >= 0 ? referer.substring(0, index) : referer;
+        }
+        if (deleteParam != null) {
+            Integer ID = Integer.parseInt(deleteParam);
             messageService.delet(ID);
-        }else {
-
-            String name;
-            if (parametrMap.get(TO_USER_PARAM_ID) == null || parametrMap.get(TO_USER_PARAM_ID)[0] == null) {
-                throw new IllegalArgumentException("error");
-            }
-            name = parametrMap.get(TO_USER_PARAM_ID)[0];
-            UserDTO recipient = userService.get(name);
+        } else {
             if (recipient == null) {
-                referer +="?" + LOGIN_ERROR + "=error";
-            }else {
-                String message;
-                if (parametrMap.get(MESSAGE_PARAM) == null || parametrMap.get(MESSAGE_PARAM)[0] == null) {
+                referer += "?" + LOGIN_ERROR + "=error";
+            } else {
+                if (messageParam.isEmpty()) {
                     throw new IllegalArgumentException("error");
-                }
-                message = parametrMap.get(MESSAGE_PARAM)[0];
-                String newMessage = changeOfTransfers(message);
+                }else {
+                String newMessage = changeOfTransfers(messageParam);
                 messageService.save(new MessageCreateDTO(newMessage, user.getId(), recipient.getId()));
+                }
             }
 
         }
-        resp.sendRedirect(referer);
+        if (referer!=null) {
+            resp.sendRedirect(referer);
+        }else {
+            PrintWriter writer = resp.getWriter();
+            writer.write("Отправка произошла успешно!");
+        }
     }
+
     public String changeOfTransfers(String text){
         String oldBlank = "\n";
         String newBlank = "<br/>";
