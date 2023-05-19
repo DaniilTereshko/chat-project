@@ -54,4 +54,12 @@ public class UserService implements IUserService {
     public UserDTO delete(int id) {
         return userDao.delete(id);
     }
+    @Override
+    public UserDTO changeRole(UserDTO userDTO, String role, UserDTO user) {
+        if(userDTO != null && (!user.getLogin().equals(userDTO.getLogin())) && (!userDTO.getRole().getRoleName().equals(role)) && (!userDTO.getRole().equals(Role.ADMIN))){
+            Role roleValue = Role.valueOf(role);
+            userDTO.setRole(roleValue);
+        }
+        return userDTO;
+    }
 }
