@@ -3,9 +3,7 @@ package by.chat.servlets.ui.admin;
 import by.chat.core.dto.Role;
 import by.chat.core.dto.UserDTO;
 import by.chat.core.exception.UsersException;
-import by.chat.services.api.IAdminService;
 import by.chat.services.api.IUserService;
-import by.chat.services.factory.AdminServiceFactory;
 import by.chat.services.factory.UserServiceFactory;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,11 +18,9 @@ import java.util.List;
 public class UiUsersServlet extends HttpServlet {
     private static final String ERROR = "error";
     private final IUserService userService;
-    private final IAdminService adminService;
 
     public UiUsersServlet() {
         this.userService = UserServiceFactory.getInstance();
-        this.adminService = AdminServiceFactory.getInstance();
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

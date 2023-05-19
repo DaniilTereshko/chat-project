@@ -4,9 +4,7 @@ package by.chat.servlets.api.admin;
 import by.chat.core.dto.Role;
 import by.chat.core.dto.UserDTO;
 import by.chat.core.exception.UsersException;
-import by.chat.services.api.IAdminService;
 import by.chat.services.api.IUserService;
-import by.chat.services.factory.AdminServiceFactory;
 import by.chat.services.factory.UserServiceFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
@@ -26,11 +24,9 @@ public class UsersServlet extends HttpServlet {
     private static final String REFERER_HEADER = "Referer";
     private static final String USER_DELETE_ID = "userId";
     private final IUserService userService;
-    private final IAdminService adminService;
 
     public UsersServlet() {
         this.userService = UserServiceFactory.getInstance();
-        this.adminService = AdminServiceFactory.getInstance();
     }
 
     @Override
@@ -52,7 +48,7 @@ public class UsersServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         UserDTO userDTO = userService.get(id);
         Role dtoRole = userDTO.getRole();
-        adminService.changeRole(userDTO, role, user);
+        userService.changeRole(userDTO, role, user);
         if(userId != null){
             int i = Integer.parseInt(userId);
             userService.delete(i);
