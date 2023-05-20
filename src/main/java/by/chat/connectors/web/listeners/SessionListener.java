@@ -1,4 +1,4 @@
-package by.chat.listeners;
+package by.chat.connectors.web.listeners;
 
 import by.chat.core.dto.UserDTO;
 import by.chat.services.api.IStatisticsService;

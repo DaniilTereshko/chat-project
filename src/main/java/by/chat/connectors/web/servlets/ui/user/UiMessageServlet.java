@@ -1,4 +1,4 @@
-package by.chat.servlets.ui.user;
+package by.chat.connectors.web.servlets.ui.user;
 
 import by.chat.services.api.IMessageService;
 import by.chat.services.api.IUserService;

@@ -1,4 +1,4 @@
-package by.chat.filters;
+package by.chat.connectors.web.filters;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;

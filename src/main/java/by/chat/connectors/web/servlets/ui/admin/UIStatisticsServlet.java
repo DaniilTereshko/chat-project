@@ -1,4 +1,4 @@
-package by.chat.servlets.ui.admin;
+package by.chat.connectors.web.servlets.ui.admin;
 
 import by.chat.services.api.IMessageStatisticsService;
 import by.chat.services.api.IUserStatisticsService;

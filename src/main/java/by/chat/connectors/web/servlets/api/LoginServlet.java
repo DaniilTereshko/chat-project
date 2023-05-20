@@ -1,4 +1,4 @@
-package by.chat.servlets.api;
+package by.chat.connectors.web.servlets.api;
 
 import by.chat.core.dto.UserDTO;
 import by.chat.core.exception.LoginException;
