@@ -1,4 +1,4 @@
-package by.chat.servlets.ui.user;
+package by.chat.connectors.web.servlets.ui.user;
 
 import by.chat.core.dto.MessageDTO;
 import by.chat.core.dto.UserDTO;

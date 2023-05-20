@@ -1,4 +1,4 @@
-package by.chat.filters;
+package by.chat.connectors.web.filters;
 
 import by.chat.core.dto.Role;
 import by.chat.core.dto.UserDTO;

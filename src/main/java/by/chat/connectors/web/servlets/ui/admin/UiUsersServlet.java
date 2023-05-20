@@ -1,4 +1,4 @@
-package by.chat.servlets.ui.admin;
+package by.chat.connectors.web.servlets.ui.admin;
 
 import by.chat.core.dto.Role;
 import by.chat.core.dto.UserDTO;

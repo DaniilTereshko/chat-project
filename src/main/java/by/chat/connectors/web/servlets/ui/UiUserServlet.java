@@ -1,4 +1,4 @@
-package by.chat.servlets.ui;
+package by.chat.connectors.web.servlets.ui;
 
 import by.chat.core.exception.LoginException;
 import by.chat.core.exception.UserException;
