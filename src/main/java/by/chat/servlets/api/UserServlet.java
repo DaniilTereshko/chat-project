@@ -4,6 +4,7 @@ package by.chat.servlets.api;
 import by.chat.core.dto.Role;
 import by.chat.core.dto.UserCreateDTO;
 import by.chat.core.dto.UserDTO;
+import by.chat.core.exception.IncorrectUserValueException;
 import by.chat.services.api.IUserService;
 import by.chat.services.factory.UserServiceFactory;
 import jakarta.servlet.ServletException;
@@ -11,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -21,6 +23,8 @@ import java.util.Date;
 @WebServlet(name = "UserServlet", urlPatterns = "/api/user")
 
 public class UserServlet extends HttpServlet {
+    private static final String REFERER_HEADER = "Referer";
+    private static final String ERROR = "errorCode";
     private static final String LOGIN_PARAM_NAME = "login";
     private static final String PASSWORD_PARAM_NAME = "password";
     private static final String CONFIRMED_PASSWORD_PARAM_NAME = "confirmed_password";
@@ -61,7 +65,7 @@ public class UserServlet extends HttpServlet {
             }
         }
         if((password == null) || (password == "")){
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Вы не пароль");
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Вы ввели не пароль");
         } else if (!password.equals(confirmedPassword)) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Введённые пароли не совпадают");
         } else if ((firstName == null) || (firstName == "")) {
@@ -78,7 +82,7 @@ public class UserServlet extends HttpServlet {
             try {
                 birthday_date = sdf.parse(birthday);
             } catch (ParseException e) {
-                throw new RuntimeException(e);
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Что-то пошло не так! Проверьте корректность ввода даты рождения");;
             }
 
         }
@@ -93,6 +97,21 @@ public class UserServlet extends HttpServlet {
                 birthday_date,
                 Role.USER
         );
-        userService.save(userCreateDTO);
+
+        try {
+            userService.save(userCreateDTO);
+        } catch (IncorrectUserValueException e) {
+            // передаём ошибку на форму
+            HttpSession session = req.getSession();
+            String referer = req.getHeader(REFERER_HEADER);
+            String result = null;
+            if(referer!=null) {
+                int index = referer.indexOf("?");
+                result = (index >= 0) ? referer.substring(0, index) : referer;
+            }
+            String errorMessage = e.getMessage(); // переменная содержащая текст ошибки
+            session.setAttribute("errorMessage", errorMessage);
+            resp.sendRedirect(result);
+        }
     }
 }
