@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface IMessageService extends ICRUDService<MessageDTO,MessageCreateDTO> {
 
-    Integer delet(int id);
+    Integer delete(int id);
     List<MessageDTO> usersMessages(int id);
 }

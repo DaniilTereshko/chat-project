@@ -15,16 +15,41 @@
         <form class="registration" action="/chat-project-1.0.0/api/user" method="POST">
             <label for="login">Логин:</label>
             <input type="text" id="login" name="login"/><br/>
+            <div class="error-wrapper">
+                <c:if test="${not empty requestScope.login_error}">
+                    <div class="error">${requestScope.login_error}</div>
+                </c:if>
+            </div>
             <label for="firstName">Имя:</label>
             <input type="text" id="firstName" name="firstName"/><br/>
+            <div class="error-wrapper">
+                <c:if test="${not empty requestScope.firstname_error}">
+                    <div class="error">${requestScope.firstname_error}</div>
+                </c:if>
+            </div>
             <label for="lastName">Фамилия:</label>
             <input type="text" id="lastName" name="lastName"/><br/>
+            <div class="error-wrapper">
+                <c:if test="${not empty requestScope.lastname_error}">
+                    <div class="error">${requestScope.lastname_error}</div>
+                </c:if>
+            </div>
             <label for="middleName">Отчество:</label>
             <input type="text" id="middleName" name="middleName"/><br/>
+            <div class="error-wrapper">
+                <c:if test="${not empty requestScope.middlename_error}">
+                    <div class="error">${requestScope.middlename_error}</div>
+                </c:if>
+            </div>
             <label for="birthday">Дата рождения:</label>
             <input type="date" id="birthday" name="birthday"/><br/>
             <label for="password">Пароль:</label>
             <input type="password" id="password" name="password"/><br/>
+            <div class="error-wrapper">
+                <c:if test="${not empty requestScope.password_error}">
+                    <div class="error">${requestScope.password_error}</div>
+                </c:if>
+            </div>
             <label for="confirmed_password">Подтвердите пароль:</label>
             <input type="password" id="confirmed_password" name="confirmed_password"/><br/>
             <div class="error-wrapper">
