@@ -13,6 +13,8 @@
             margin-bottom: 20px;
             }
         </style>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="${pageContext.request.contextPath}/ui/js/users.js"></script>
     </head>
     <body>
         <jsp:include page="../header.jsp"/>
@@ -43,7 +45,6 @@
             </thead>
             <tbody>
                 <c:forEach var="user" items="${requestScope.users}">
-                    <form action="/chat-project-1.0.0/api/admin/users" method="post">
                         <tr>
                             <td>${user.id}</td>
                             <td>${user.login}</td>
@@ -55,21 +56,15 @@
                             <td><fmt:formatDate value="${user.registrationDate}" pattern="yyyy-MM-dd"/></td>
                             <td>
                                 <c:forEach var="r" items="${roles}">
-                                <label>
-                                    ${r.getRoleName()}:
-                                    <input type="radio" name="role" value="${r.getRoleName()}" ${user.role.getRoleName() == r.getRoleName() ? 'checked' : ''}>
-                                </label>
+                                    <label>
+                                        ${r.getRoleName()}:
+                                        <input type="radio" name="role-${user.id}" value="${r.getRoleName()}" ${user.role.getRoleName() == r.getRoleName() ? 'checked' : ''}>
+                                    </label>
                                 </c:forEach>
-                                <label>
-                                     Удалить:
-                                    <input type="checkbox" name="userId" value="${user.id}">
-                                </label>
-
+                                <button class="edit-button" data-user-id="${user.id}">Изменить</button>
+                                <button class="delete-button" data-user-id="${user.id}">Удалить</button>
                             </td>
-                            <input type="hidden" name="id" value="${user.id}"/>
-                            <td><input type="submit" class="submit-button"/></td>
                         </tr>
-                    </form>
                 </c:forEach>
             </tbody>
         </table>

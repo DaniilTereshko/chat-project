@@ -22,7 +22,7 @@ import java.util.List;
 public class UsersServlet extends HttpServlet {
     private static final String ERROR = "error";
     private static final String REFERER_HEADER = "Referer";
-    private static final String USER_DELETE_ID = "userId";
+    private static final String USER_ID = "id";
     private final IUserService userService;
 
     public UsersServlet() {
@@ -39,29 +39,32 @@ public class UsersServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userId = req.getParameter(USER_DELETE_ID);
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        String referer = req.getHeader(REFERER_HEADER);
         UserDTO user = (UserDTO) session.getAttribute("user");
         String role = req.getParameter("role");
-        int id = Integer.parseInt(req.getParameter("id"));
+        int id = Integer.parseInt(req.getParameter(USER_ID));
         UserDTO userDTO = userService.get(id);
         Role dtoRole = userDTO.getRole();
-        userService.changeRole(userDTO, role, user);
-        if(userId != null){
-            int i = Integer.parseInt(userId);
-            userService.delete(i);
+        if (!dtoRole.equals(Role.valueOf(role))) {
+            userService.changeRole(userDTO, role, user);
+            resp.setStatus(HttpServletResponse.SC_OK); // Установить статус 200 OK
+            resp.getWriter().write("Role changed");
+        } else {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // Установить статус 200 OK
+            resp.getWriter().write("Role not changed");
         }
 
-        int index = referer.indexOf("?");
-        String result = (index >= 0) ? referer.substring(0, index) : referer;
-        if(!dtoRole.equals(userDTO.getRole())){
-            result+="?" + ERROR + "=" + UsersException.SUCCESS.ordinal();
-            resp.sendRedirect(result);
-        }else {
-            result+="?" + ERROR + "="+UsersException.ERROR.ordinal();
-            resp.sendRedirect(result);
+
+    }
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String userId = req.getParameter(USER_ID);
+        if (userId != null) {
+            int i = Integer.parseInt(userId);
+            userService.delete(i);
+            resp.setStatus(HttpServletResponse.SC_OK); // Установить статус 200 OK
+            resp.getWriter().write("User deleted");
         }
     }
 }
