@@ -1,6 +1,5 @@
 package by.chat.dao.memory;
 
-import by.chat.core.dto.MessageCreateDTO;
 import by.chat.core.dto.MessageDTO;
 import by.chat.dao.api.IMessageDao;
 
