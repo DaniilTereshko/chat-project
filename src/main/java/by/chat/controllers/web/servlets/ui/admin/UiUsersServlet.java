@@ -28,18 +28,6 @@ public class UiUsersServlet extends HttpServlet {
         req.setAttribute("users", userDTOS);
         req.setAttribute("roles", Role.values());
 
-        String error = req.getParameter(ERROR);
-        if(error != null){
-            int errorCode = 0;
-            errorCode = Integer.parseInt(error);
-            if(errorCode == UsersException.SUCCESS.ordinal()){
-                req.setAttribute(ERROR, "Операция прошла успешно");
-            }
-            if(errorCode == UsersException.ERROR.ordinal()){
-                req.setAttribute(ERROR, "Операция не выполнена");
-            }
-        }
-
         req.getRequestDispatcher("/ui/admin/users.jsp").forward(req,resp);
     }
 }
