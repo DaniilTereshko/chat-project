@@ -8,9 +8,9 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ui/styles/home.css"/>
         <style>
             .submit-button {
-            display: block;
-            width: 100%;
-            margin-bottom: 20px;
+                display: block;
+                width: 100%;
+                margin-bottom: 20px;
             }
         </style>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -18,16 +18,6 @@
     </head>
     <body>
         <jsp:include page="../header.jsp"/>
-        <div class="error-wrapper">
-            <c:choose>
-              <c:when test="${not empty requestScope.ok}">
-                <div class="alert-success">${requestScope.ok}</div>
-              </c:when>
-              <c:when test="${not empty requestScope.error}">
-                <div class="alert-danger">${requestScope.error}</div>
-              </c:when>
-            </c:choose>
-        </div>
         <table>
             <thead>
                 <tr>
@@ -40,31 +30,33 @@
                     <th>Birthday</th>
                     <th>RegistrationDate</th>
                     <th>Role</th>
-                    <th>Confirm</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach var="user" items="${requestScope.users}">
-                        <tr>
-                            <td>${user.id}</td>
-                            <td>${user.login}</td>
-                            <td>${user.password}</td>
-                            <td>${user.firstName}</td>
-                            <td>${user.middleName}</td>
-                            <td>${user.lastName}</td>
-                            <td><fmt:formatDate value="${user.birthday}" pattern="yyyy-MM-dd"/></td>
-                            <td><fmt:formatDate value="${user.registrationDate}" pattern="yyyy-MM-dd"/></td>
-                            <td>
-                                <c:forEach var="r" items="${roles}">
-                                    <label>
-                                        ${r.getRoleName()}:
-                                        <input type="radio" name="role-${user.id}" value="${r.getRoleName()}" ${user.role.getRoleName() == r.getRoleName() ? 'checked' : ''}>
-                                    </label>
-                                </c:forEach>
-                                <button class="edit-button" data-user-id="${user.id}">Изменить</button>
-                                <button class="delete-button" data-user-id="${user.id}">Удалить</button>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.login}</td>
+                        <td>${user.password}</td>
+                        <td>${user.firstName}</td>
+                        <td>${user.middleName}</td>
+                        <td>${user.lastName}</td>
+                        <td><fmt:formatDate value="${user.birthday}" pattern="yyyy-MM-dd"/></td>
+                        <td><fmt:formatDate value="${user.registrationDate}" pattern="yyyy-MM-dd"/></td>
+                        <td>
+                            <c:forEach var="r" items="${roles}">
+                                <label>
+                                    ${r.getRoleName()}:
+                                    <input type="radio" name="role-${user.id}" value="${r.getRoleName()}" ${user.role.getRoleName() == r.getRoleName() ? 'checked' : ''}>
+                                </label>
+                            </c:forEach>
+                        </td>
+                        <td>
+                            <button class="edit-button" data-user-id="${user.id}">Изменить</button>
+                            <button class="delete-button" data-user-id="${user.id}">Удалить</button>
+                        </td>
+                    </tr>
                 </c:forEach>
             </tbody>
         </table>

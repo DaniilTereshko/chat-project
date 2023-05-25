@@ -3,7 +3,6 @@ package by.chat.controllers.web.servlets.api.admin;
 
 import by.chat.core.dto.Role;
 import by.chat.core.dto.UserDTO;
-import by.chat.core.enums.UsersException;
 import by.chat.services.api.IUserService;
 import by.chat.services.factory.UserServiceFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,10 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name="UsersServlet",urlPatterns = "/api/admin/users")
-
 public class UsersServlet extends HttpServlet {
-    private static final String ERROR = "error";
-    private static final String REFERER_HEADER = "Referer";
     private static final String USER_ID = "id";
     private final IUserService userService;
 
@@ -54,8 +50,6 @@ public class UsersServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // Установить статус 200 OK
             resp.getWriter().write("Role not changed");
         }
-
-
     }
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

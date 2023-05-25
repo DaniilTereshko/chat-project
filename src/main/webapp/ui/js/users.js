@@ -2,18 +2,19 @@ $(document).ready(function() {
     // Функция для отправки PUT запроса
     function sendPutRequest(userId, role) {
         $.ajax({
-            url: '/chat-project-1.0.0/api/admin/users',
+            url: '/chat-project-1.0.0/api/admin/users?id=' + userId+'&role='+role,
             type: 'PUT',
-            data: {
-                role: role,
-                id: userId
-            },
             success: function(response) {
                 alert('Роль пользователя успешно изменена');
                 location.reload(); // Перезагрузить страницу после изменения
             },
             error: function(xhr, status, error) {
-                alert('Ошибка при изменении роли пользователя: ' + error);
+                if (xhr.status === 400) {
+                    alert('Ошибка при изменении пользователя: ' + xhr.responseText);
+                } else {
+                    alert('Ошибка при изменении пользователя: ' + error);
+                }
+                location.reload();
             }
         });
     }
